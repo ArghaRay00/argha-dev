@@ -1,0 +1,23 @@
+export const SITE = {
+  website: "https://argha.dev/",
+  author: "Argha Ray",
+  profile: "https://github.com/ArghaRay00",
+  desc: "Full-stack engineer building enterprise systems, side projects, and writing about the craft.",
+  title: "argha.dev",
+  ogImage: "astropaper-og.jpg",
+  lightAndDarkMode: true,
+  postPerIndex: 6,
+  postPerPage: 6,
+  scheduledPostMargin: 15 * 60 * 1000,
+  showArchives: true,
+  showBackButton: true,
+  editPost: {
+    enabled: false,
+    text: "",
+    url: "",
+  },
+  dynamicOgImage: true,
+  dir: "ltr",
+  lang: "en",
+  timezone: "Asia/Kolkata",
+} as const;

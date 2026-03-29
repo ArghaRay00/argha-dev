@@ -1,123 +1,122 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Socials from "@/components/Socials.astro";
+import LinkButton from "@/components/LinkButton.astro";
+import Card from "@/components/Card.astro";
+import getSortedPosts from "@/utils/getSortedPosts";
+import IconRss from "@/assets/icons/IconRss.svg";
+import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
+import { SITE } from "@/config";
+import { SOCIALS } from "@/constants";
+
+const posts = await getCollection("blog");
+
+const sortedPosts = getSortedPosts(posts);
+const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
+const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<section class="hero">
-				<h1>Hey, I'm Argha</h1>
-				<p class="tagline">
-					Full-stack engineer at Motorola Solutions. I build enterprise backend systems,
-					internal tools, and side projects across the stack. I write Java, C#, TypeScript,
-					Python, and Bash professionally. On weekends I build things in NestJS, React, Go,
-					and whatever else catches my attention.
-				</p>
-				<div class="links">
-					<a href="https://github.com/ArghaRay00" target="_blank">GitHub</a>
-					<a href="https://x.com/argharay94" target="_blank">X / Twitter</a>
-					<a href="https://linkedin.com/in/argha-ray" target="_blank">LinkedIn</a>
-				</div>
-			</section>
+<Layout>
+  <Header />
+  <main id="main-content" data-layout="index" class="app-layout">
+    <section id="hero" class:list={["pt-8 pb-6", "border-b border-border"]}>
+      <h1 class="my-4 inline-block text-4xl font-bold sm:my-8 sm:text-5xl">
+        Hey, I'm Argha
+      </h1>
+      <a
+        target="_blank"
+        href="/rss.xml"
+        class="inline-block"
+        aria-label="rss feed"
+        title="RSS Feed"
+      >
+        <IconRss
+          width={20}
+          height={20}
+          class="scale-125 stroke-accent stroke-3 rtl:-rotate-90"
+        />
+        <span class="sr-only">RSS Feed</span>
+      </a>
 
-			<section class="section">
-				<h2>What I'm working on</h2>
-				<div class="cards">
-					<div class="card">
-						<h3>Globo</h3>
-						<p>TVOD streaming platform for the South Indian diaspora. NestJS + PostgreSQL backend, React 19 frontend. 13 PRs, 109 tests.</p>
-						<a href="https://github.com/golden-screen" target="_blank">View on GitHub</a>
-					</div>
-					<div class="card">
-						<h3>OnlineExam</h3>
-						<p>Modernized from .NET Framework 4.5.1 to .NET 9 Clean Architecture. Carter, MediatR, EF Core 9, PostgreSQL. 20+ REST endpoints.</p>
-						<a href="https://github.com/ArghaRay00/OnlineExam" target="_blank">View on GitHub</a>
-					</div>
-					<div class="card">
-						<h3>ArghaTrade</h3>
-						<p>Systematic trading system for Indian markets. ORB scanner, LLM veto, risk manager, Kite executor. Coming soon.</p>
-					</div>
-				</div>
-			</section>
+      <p>
+        Full-stack engineer with 9+ years building enterprise systems, internal
+        tools, and side projects. Currently at Motorola Solutions working on
+        authorization services, deployment automation, and telecom platforms.
+        I write about software architecture, backend design, and things I learn
+        along the way.
+      </p>
+      <p class="mt-2">
+        Check out the
+        <LinkButton
+          class="underline decoration-dashed underline-offset-4 hover:text-accent"
+          href="/about/"
+        >
+          about page
+        </LinkButton> to learn more, or browse the posts below.
+      </p>
+      {
+        // only display if at least one social link is enabled
+        SOCIALS.length > 0 && (
+          <div class="mt-4 flex max-sm:flex-col sm:items-center">
+            <div class="me-2 mb-1 whitespace-nowrap sm:mb-0">Social Links:</div>
+            <Socials />
+          </div>
+        )
+      }
+    </section>
 
-			<section class="section">
-				<h2>Recent posts</h2>
-				<p>Check out the <a href="/blog">blog</a> for technical writing about what I'm building and learning.</p>
-			</section>
-		</main>
-		<Footer />
-		<style>
-			main {
-				max-width: 720px;
-				margin: 0 auto;
-				padding: 1rem;
-			}
-			.hero {
-				padding: 2rem 0 3rem;
-			}
-			.hero h1 {
-				font-size: 2.5rem;
-				margin-bottom: 0.5rem;
-			}
-			.tagline {
-				font-size: 1.15rem;
-				line-height: 1.7;
-				color: #555;
-				margin-bottom: 1.5rem;
-			}
-			.links {
-				display: flex;
-				gap: 1.5rem;
-			}
-			.links a {
-				color: var(--accent);
-				text-decoration: none;
-				font-weight: 600;
-			}
-			.links a:hover {
-				text-decoration: underline;
-			}
-			.section {
-				padding: 2rem 0;
-				border-top: 1px solid #eee;
-			}
-			.section h2 {
-				font-size: 1.5rem;
-				margin-bottom: 1rem;
-			}
-			.cards {
-				display: grid;
-				gap: 1rem;
-			}
-			.card {
-				border: 1px solid #e5e7eb;
-				border-radius: 8px;
-				padding: 1.25rem;
-			}
-			.card h3 {
-				margin: 0 0 0.5rem;
-				font-size: 1.15rem;
-			}
-			.card p {
-				margin: 0 0 0.75rem;
-				color: #555;
-				line-height: 1.5;
-				font-size: 0.95rem;
-			}
-			.card a {
-				color: var(--accent);
-				text-decoration: none;
-				font-size: 0.9rem;
-				font-weight: 600;
-			}
-		</style>
-	</body>
-</html>
+    {
+      featuredPosts.length > 0 && (
+        <section
+          id="featured"
+          class:list={[
+            "pt-12 pb-6",
+            { "border-b border-border": recentPosts.length > 0 },
+          ]}
+        >
+          <h2 class="text-2xl font-semibold tracking-wide">Featured</h2>
+          <ul>
+            {featuredPosts.map(data => (
+              <Card variant="h3" {...data} />
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    {
+      recentPosts.length > 0 && (
+        <section id="recent-posts" class="pt-12 pb-6">
+          <h2 class="text-2xl font-semibold tracking-wide">Recent Posts</h2>
+          <ul>
+            {recentPosts.map(
+              (data, index) =>
+                index < SITE.postPerIndex && <Card variant="h3" {...data} />
+            )}
+          </ul>
+        </section>
+      )
+    }
+
+    <div class="my-8 text-center">
+      <LinkButton href="/posts/">
+        All Posts
+        <IconArrowRight class="inline-block rtl:-rotate-180" />
+      </LinkButton>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const indexLayout = (document.querySelector("#main-content") as HTMLElement)
+      ?.dataset?.layout;
+    if (indexLayout) {
+      sessionStorage.setItem("backUrl", "/");
+    }
+  });
+</script>
