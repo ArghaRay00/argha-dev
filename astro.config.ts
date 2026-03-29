@@ -61,16 +61,24 @@ export default defineConfig({
     preserveScriptOrder: true,
     fonts: [
       {
-        name: "Inter",
-        cssVariable: "--font-inter",
+        name: "Space Grotesk",
+        cssVariable: "--font-display",
         provider: fontProviders.google(),
         fallbacks: ["system-ui", "sans-serif"],
-        weights: [300, 400, 500, 600, 700],
+        weights: [500, 600, 700],
+        styles: ["normal"],
+      },
+      {
+        name: "Inter",
+        cssVariable: "--font-body",
+        provider: fontProviders.google(),
+        fallbacks: ["system-ui", "sans-serif"],
+        weights: [300, 400, 500, 600],
         styles: ["normal", "italic"],
       },
       {
         name: "JetBrains Mono",
-        cssVariable: "--font-jetbrains-mono",
+        cssVariable: "--font-mono",
         provider: fontProviders.google(),
         fallbacks: ["monospace"],
         weights: [400, 500],
