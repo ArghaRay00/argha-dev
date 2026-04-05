@@ -1,8 +1,22 @@
-# Blog Draft: Raw Learnings — From Self-Hosted HLS to Bunny Stream CDN
+---
+author: Argha Ray
+pubDatetime: 2026-04-06T02:00:00Z
+title: "From Self-Hosted HLS to Bunny Stream: What Changes and What Breaks"
+slug: from-self-hosted-hls-to-bunny-stream
+featured: true
+draft: true
+tags:
+  - streaming
+  - nestjs
+  - architecture
+  - cdn
+  - bunny
+description: "Part 2 of the streaming POC series. I swapped self-hosted HLS for Bunny Stream CDN with per-segment token authentication via Shaka Player — every gotcha, cost comparison, and architectural decision along the way."
+---
 
-**Status:** Raw notes — not polished prose. Write from these.
-**Part 1 reference:** [Streaming Video on a Zero-Dollar Server](https://argha.dev/posts/streaming-video-on-a-zero-dollar-server)
-**Date:** 2026-04-06
+**Part 1:** [Streaming Video on a Zero-Dollar Server](https://argha.dev/posts/streaming-video-on-a-zero-dollar-server)
+
+**Status:** Raw notes — not polished prose yet.
 
 ---
 
