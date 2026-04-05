@@ -17,10 +17,9 @@ I write Java, C#, TypeScript, Python, and Bash professionally. On weekends I bui
 
 ## Side projects
 
-- **[Globo](https://github.com/golden-screen)** — A TVOD streaming platform for the South Indian diaspora. NestJS + PostgreSQL backend, React 19 frontend. 9 database entities, feed service with 5 rail queries, search, discover with pagination. 98 tests, TDD throughout.
 - **[OnlineExam](https://github.com/ArghaRay00/OnlineExam)** — Modernized from .NET Framework 4.5.1 to .NET 9 Clean Architecture (Carter, MediatR, EF Core 9, PostgreSQL). 20+ endpoints with CI/CD.
-- **ArghaTrade** (in progress) — Systematic trading system for Indian markets. Pure-math ORB scanner, LLM veto, risk manager, Kite executor.
-- **VastuDrishti** (planned) — AR-based Vastu auditor for Android. Kotlin + ARCore + ML Kit.
+- **[Streaming platform](https://globo.argha.dev)** — Currently building a TVOD streaming platform with HLS playback, reverse proxy routing, and stream session management. NestJS + React + Shaka Player.
+- A couple more things in the works — trading systems, AR apps. I'll write about them when they're ready.
 
 ## Tech
 

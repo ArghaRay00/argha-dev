@@ -14,7 +14,7 @@ This is the first post on argha.dev. I've been meaning to start writing for a wh
 
 ## Why a blog?
 
-I spend most of my time building things — enterprise services at Motorola Solutions during the day, side projects like [Globo](https://github.com/golden-screen) and [OnlineExam](https://github.com/ArghaRay00/OnlineExam) in the evenings. Along the way I run into design decisions, debugging sessions, and architectural trade-offs that are worth writing down.
+I spend most of my time building things — enterprise services at Motorola Solutions during the day, side projects like a [streaming platform](https://globo.argha.dev) and [OnlineExam](https://github.com/ArghaRay00/OnlineExam) in the evenings. Along the way I run into design decisions, debugging sessions, and architectural trade-offs that are worth writing down.
 
 A blog gives me a place to:
 
