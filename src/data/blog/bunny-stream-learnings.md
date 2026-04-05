@@ -4,7 +4,7 @@ pubDatetime: 2026-04-06T02:00:00Z
 title: "From Self-Hosted HLS to Bunny Stream: What Changes and What Breaks"
 slug: from-self-hosted-hls-to-bunny-stream
 featured: true
-draft: true
+draft: false
 tags:
   - streaming
   - nestjs
