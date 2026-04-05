@@ -1,6 +1,6 @@
 ---
 author: Argha Ray
-pubDatetime: 2026-04-05T18:00:00Z
+pubDatetime: 2026-04-05T14:00:00Z
 title: "Streaming Video on a $0 Server: Building an HLS POC from Scratch"
 slug: streaming-video-on-a-zero-dollar-server
 featured: true
