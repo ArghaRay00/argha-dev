@@ -61,6 +61,17 @@ Spent the year working across the WoC (Wave OnCloud) ecosystem — the serverles
 - **Investigated a major production outage**: the existing RCA blamed "connection pool exhaustion." I dug into CloudTrail logs, parsed 502 TDS error patterns, and proved the real cause was database connection poisoning — dead connections sitting in the pool after an RDS connectivity disruption. The IIS worker recycle at 7 PM fixed it, not the manual SELECT query. The original RCA had been accepted for months.
 - Mapped the full AWS infrastructure: 55 VPCs, 353 Lambda functions, 37 DynamoDB tables, 15 RDS instances, 45 IoT Core rules across production and non-production accounts
 
+**Kaiser Program — WiFi Certificate Management** · ASP.NET Core, C#, SQL Server, AWS S3
+
+Designed and built the WiFi Enterprise certificate management feature for the BBPTT security enhancements. This was a ground-up build — database schema, APIs, and IoT integration.
+
+- Designed a normalized schema: four tables (Certificates, CertificateUploaders, DeviceCertificateMappings, CertificateAuditLog) with triggers for usage count tracking and expiration management
+- Built the full API surface — upload, assign, unassign, delete (with soft-delete protection for in-use certificates), replace, save
+- S3 integration for certificate file storage with SHA256 integrity verification
+- Security protocol support: EAP-TLS, PEAP-MSCHAPv2, EAPTTLS-MSCHAPv2, EAP-PWD
+- Created IoT topic structure for pushing certificate configs to devices via MQTT shadows
+- Stored procedures for safe deletion (prevents removing certificates assigned to active devices), assignment with validation, and batch expiration updates
+
 **Provisioning & Configuration** · Java, Spring Boot
 
 Started working on the CAT (Central Admin Tool) codebase — the admin interface for PTT user management. Built the Requests & Approvals module: twelve API endpoints for external request lifecycle management with pagination, expiration scheduling, and authorization integration. This work fed directly into the deeper AuthZ involvement in 2026.
