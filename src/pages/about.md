@@ -22,7 +22,7 @@ What I shipped:
 - Added JSR-303 input validation across all request models — the kind of thing that should've existed from day one but didn't
 - Refactored the monolith: split the request/approval flow into its own service boundary, extracted the expiration scheduler, pulled validation logic out of controllers
 - Removed a deprecated role (Replay Admin) and trimmed another's permissions based on actual usage analysis
-- Built the integration between AuthZ and CAT (Central Admin Tool) — twelve endpoints for external request management with pagination, authorization checks, and cross-service token validation
+- Built the integration between AuthZ and [CAT](https://waveoncloud.com/) — twelve endpoints for external request management with pagination, authorization checks, and cross-service token validation
 - Became the primary developer, reviewer, and the person people come to when something breaks in this codebase
 
 **pgEdge / Asset Manager PostgreSQL** · Python, PostgreSQL, Patroni, pgBackRest
@@ -52,33 +52,39 @@ Ran a two-day internal workshop for the team on context engineering and agentic 
 
 ## 2025
 
-**Device Cloud Services (DCS)** · TypeScript, AWS Lambda, IoT Core, DynamoDB, Serverless Framework
+**Kaiser Program — WiFi Enterprise Certificate Management** · ASP.NET Core, C#, SQL Server, AWS S3, TypeScript, AWS Lambda, IoT Core
 
-Spent the year working across the WoC (Wave OnCloud) ecosystem — the serverless layer that manages hundreds of thousands of PTT devices in the field. Sixty-four Lambda functions, eight DynamoDB tables, IoT Core rules for MQTT device shadows, S3 for firmware and configurations.
+The biggest feature I shipped in 2025. Kaiser was a cross-repo effort spanning OnePortal (C#/.NET backend + Angular frontend) and Device Cloud Services (TypeScript/Lambda) — building WiFi Enterprise certificate management end to end.
 
-- Worked on Lambda handlers for device shadow sync, firmware upgrade flows, task execution, and connect/disconnect lifecycle events
-- Helped with production config rollouts for expanded regional support
-- **Investigated a major production outage**: the existing RCA blamed "connection pool exhaustion." I dug into CloudTrail logs, parsed 502 TDS error patterns, and proved the real cause was database connection poisoning — dead connections sitting in the pool after an RDS connectivity disruption. The IIS worker recycle at 7 PM fixed it, not the manual SELECT query. The original RCA had been accepted for months.
-- Mapped the full AWS infrastructure: 55 VPCs, 353 Lambda functions, 37 DynamoDB tables, 15 RDS instances, 45 IoT Core rules across production and non-production accounts
+On the **portal side** — designed the database schema from scratch (four tables with migrations, triggers for usage count, batch expiration jobs), built the full certificate lifecycle APIs: save to S3, replace with device remapping, expiration date extraction from .cer files, uploader management with SFDC account linking. Iteratively deployed across dev, QA, UAT, and production through October–December. Supported Kaiser beta testing.
 
-**Kaiser Program — WiFi Certificate Management** · ASP.NET Core, C#, SQL Server, AWS S3
+On the **device cloud side** — built a new Lambda handler for the file repository access pattern, with IoT topic rules for routing certificate events to devices. Added validation, logging, simplified the topic path structure for certificate distribution. Refactored the message handler configuration.
 
-Designed and built the WiFi Enterprise certificate management feature for the BBPTT security enhancements. This was a ground-up build — database schema, APIs, and IoT integration.
+This touched Angular, ASP.NET Core, SQL Server, S3, and the AWS IoT/Lambda stack — one feature, two repos, four environments, two months of shipping.
 
-- Designed a normalized schema: four tables (Certificates, CertificateUploaders, DeviceCertificateMappings, CertificateAuditLog) with triggers for usage count tracking and expiration management
-- Built the full API surface — upload, assign, unassign, delete (with soft-delete protection for in-use certificates), replace, save
-- S3 integration for certificate file storage with SHA256 integrity verification
-- Security protocol support: EAP-TLS, PEAP-MSCHAPv2, EAPTTLS-MSCHAPv2, EAP-PWD
-- Created IoT topic structure for pushing certificate configs to devices via MQTT shadows
-- Stored procedures for safe deletion (prevents removing certificates assigned to active devices), assignment with validation, and batch expiration updates
+**License Renewal & Expiry Webhooks** · ASP.NET Core, C#
+
+Built the subscription lifecycle event system — contract renewal notifications, expiry webhooks, partial renewal handling, grace period logic. Self-service renewal (SSR) webhook integration to reduce manual intervention. Multi-region support including EMEA expiry handling. This was the plumbing that keeps the entire subscription business running.
+
+**Mototrbo R7 DualMode Device Support** · Angular, ASP.NET Core, C#
+
+Supported the launch of a new dual-mode device type (radio + cellular). Database migrations for the new device profile, registration flow changes, firmware upgrade handling, and regional configuration for EMEA expansion. Also built the CSS (Cloud Services Suite) integration with EVA token generation for Kodiak authentication.
+
+**Reseller Portal & Bulk Operations** · Angular, ASP.NET Core, C#, SQL Server
+
+Built bulk operations for the reseller dashboard — CSV import for mass subscriber updates, bulk deactivation API, bulk corporate name updates, license allocation. The kind of feature where you learn a lot about database transactions and error handling at scale.
+
+**KALKI Pilot (UCMCS)** · ASP.NET Core, C#
+
+Supported an early access pilot for a new device platform — TLK140 device profile creation, MVNO activation/deactivation flows, reseller license allocation. Working with pre-release hardware means a lot of "this doesn't match the spec" conversations.
+
+**Production incident investigation** · .NET, SQL Server, AWS CloudTrail
+
+Independently reinvestigated a WoC portal outage where the accepted RCA blamed connection pool exhaustion. Went through CloudTrail logs and TDS error patterns, found the actual cause — database connectivity disruption that poisoned the pool with dead connections. The original analysis had been accepted for months. I documented the corrected findings.
 
 **Provisioning & Configuration** · Java, Spring Boot
 
-Started working on the CAT (Central Admin Tool) codebase — the admin interface for PTT user management. Built the Requests & Approvals module: twelve API endpoints for external request lifecycle management with pagination, expiration scheduling, and authorization integration. This work fed directly into the deeper AuthZ involvement in 2026.
-
-**WoC Portal Operations** · .NET, C#, IIS, AWS
-
-Continued supporting the OnePortal/WoC portal — Windows IIS operations, AMI setup, stack management. Handled certificate renewals, environment-specific debugging, and the kind of operational work that teaches you how production systems actually behave.
+Started working on the [CAT](https://waveoncloud.com/) codebase. Built the Requests & Approvals module — twelve API endpoints for external request lifecycle with pagination, expiration scheduling, and authorization integration. This fed directly into the AuthZ work in 2026.
 
 ---
 
@@ -90,15 +96,22 @@ The most intense stretch. OnePortal is Motorola's multi-tenant provisioning port
 
 The bigger features I built:
 
+- **Gateway management** — full UI and API implementation for Wave PTX gateway listing, editing, and task execution. Built the prototype, integrated with backend services, took it through demo and DT.
 - **Device cloning** — the full multi-zone device cloning feature: Kodiak subscriber API integration, group API changes, portal UI, notifications, role-based access, and cross-zone association. This became one of the patent candidates.
 - **Carrier transition** — managed the migration from Telna to WirelessLogic as the primary MVNO carrier. New API integration, webhook updates, subscriber lifecycle changes, regression testing across environments.
+- **Notification center** — redesigned the notification system with a header-bar notification center, multi-app integration across OnePortal, CAT, and UGW portals.
+- **EVA token & CSS integration** — built the EVA (Enterprise Voice Authentication) token generation for the Kodiak PTT ecosystem, and the DCS topic integration for Cloud Services Suite alerts. Critical authentication mechanism for multi-regional support.
 - **Webhook integrations** — built the webhook layer connecting OnePortal to Device Cloud Services for real-time device state updates. License update webhooks for SMP and reseller entities.
-- **Certificate management** — WiFi Enterprise certificate distribution to devices through the portal, including S3 key format updates and expiration date extraction.
-- **User preferences system** — designed and implemented user preferences with Hangfire background job scheduling for batch operations.
+- **User preferences system** — designed and implemented cross-app preference storage with Hangfire background job scheduling. Used by OnePortal, CAT, and UGW.
+- **SMP (Subscription Management Platform) integration** — sustained integration work across multiple quarters. License updates, user account handling, subscription number management, reseller entity support, API stub for data collection.
+- **Okta & Keycloak auth** — server-side Okta token generation for OnePortal-CAT integration, OAuth flow implementation, Keycloak onboarding analysis.
+- **CloudWatch Logs API** — AWS CloudWatch integration for operational logging, log filtering, request/response logging for production debugging.
 - **Subscription management** — license activation/deactivation flows, SIM management, package upgrades/downgrades across multiple carrier APIs.
+- **MINT program support** — ongoing support for the K INT internal/beta device testing program. Device type sync between WoC and SMP, production support across multiple quarters.
 - **Load testing** — loaded 5,000 subscribers and ran performance tests to find bottlenecks in the listing pages and Entity Framework queries.
+- **Usability initiatives** — portal UX improvements from the PDMBB (Product Managers Business Backlog), including navigation sidebar improvements, inclusive language support, and multi-quarter UI refinements.
 - **Security hardening** — HTTP-only flags, secure cookies, login validation, authorization analysis.
-- **Production support** — SIT, UAT, and production deployments across multiple environments (dev, qa, uat, test, iac, stub). The kind of work where you learn how real systems fail.
+- **Production support** — SIT, UAT, and production deployments across multiple environments. RCA documentation for WoC incidents, reseller migration issues analysis.
 
 During a quieter quarter in late 2023, I did an IPR analysis and identified **seven patent candidates**: multi-zone device cloning with selective cross-association, WiFi enterprise certificate distribution, multi-carrier MVNO federation with lifecycle normalization, MQTT topic-encoded bidirectional task protocol, dual-token cross-validation with JWE enrichment, cascading multi-service rollback with DB-backed locks, and composite unique constraint validation via Elasticsearch.
 
