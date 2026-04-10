@@ -44,6 +44,14 @@ A deployment tool I wrote for the team's shared test servers. Started as a perso
 - Golden image management: snapshot a known-good deployment, compare against current state, detect config drift
 - Container-aware: works with dsh, docker, or direct SSH depending on the server setup
 
+**OnePortal Security Hardening** · ASP.NET Core, C#, Angular
+
+Token sanitization and security refactoring across the OnePortal platform — cleaning up how tokens are passed, stored, and validated between the portal and downstream services. Ongoing work to tighten the authentication surface.
+
+**AYT Config Service** · Java 21, Spring Boot, SAP HANA, Kafka
+
+Designed a configuration authority service for the AYT analytics platform. CRUD operations for data product configurations with versioning, Kafka event publishing on config changes, and dual-database support (SAP HANA for production, PostgreSQL for development).
+
 **Agentic Engineering Workshop** · Internal training
 
 Ran a two-day internal workshop for the team on context engineering and agentic development patterns. Live coding sessions, deployer demos, prompt engineering, custom agent building. The materials are written and I'm planning a third session on MCP servers and hands-on agent building.
@@ -110,7 +118,9 @@ The bigger features I built:
 - **MINT program support** — ongoing support for the K INT internal/beta device testing program. Device type sync between WoC and SMP, production support across multiple quarters.
 - **Load testing** — loaded 5,000 subscribers and ran performance tests to find bottlenecks in the listing pages and Entity Framework queries.
 - **Usability initiatives** — portal UX improvements from the PDMBB (Product Managers Business Backlog), including navigation sidebar improvements, inclusive language support, and multi-quarter UI refinements.
-- **Security hardening** — HTTP-only flags, secure cookies, login validation, authorization analysis.
+- **.NET upgrade (5 → 8)** — led the framework migration for the OnePortal backend. TrustServerCertificate configuration for non-prod environments, SSL certificate handling changes, code propagation across branches. The kind of upgrade that touches everything and breaks things you didn't know existed.
+- **Angular evolution (5 → 19)** — the frontend grew across multiple Angular versions over the years. Major refactoring for each upgrade — component architecture changes, RxJS patterns, build tooling updates, Angular Material migrations.
+- **Security hardening** — HTTP-only flags, secure cookies, login validation, authorization analysis, token sanitization.
 - **Production support** — SIT, UAT, and production deployments across multiple environments. RCA documentation for WoC incidents, reseller migration issues analysis.
 
 During a quieter quarter in late 2023, I did an IPR analysis and identified **seven patent candidates**: multi-zone device cloning with selective cross-association, WiFi enterprise certificate distribution, multi-carrier MVNO federation with lifecycle normalization, MQTT topic-encoded bidirectional task protocol, dual-token cross-validation with JWE enrichment, cascading multi-service rollback with DB-backed locks, and composite unique constraint validation via Elasticsearch.
