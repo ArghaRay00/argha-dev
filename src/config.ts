@@ -2,7 +2,7 @@ export const SITE = {
   website: "https://argha.dev/",
   author: "Argha Ray",
   profile: "https://github.com/ArghaRay00",
-  desc: "Full-stack engineer building enterprise systems, side projects, and writing about the craft.",
+  desc: "Software engineer in Bangalore. Backend systems, side projects, and notes from building real things.",
   title: "argha.dev",
   ogImage: "astropaper-og.jpg",
   lightAndDarkMode: true,

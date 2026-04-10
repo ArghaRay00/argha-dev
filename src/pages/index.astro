@@ -7,7 +7,6 @@ import Socials from "@/components/Socials.astro";
 import LinkButton from "@/components/LinkButton.astro";
 import Card from "@/components/Card.astro";
 import getSortedPosts from "@/utils/getSortedPosts";
-import IconRss from "@/assets/icons/IconRss.svg";
 import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
 import { SITE } from "@/config";
 import { SOCIALS } from "@/constants";
@@ -17,64 +16,36 @@ const posts = await getCollection("blog");
 const sortedPosts = getSortedPosts(posts);
 const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
 const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
+const allPosts = [...featuredPosts, ...recentPosts];
 ---
 
 <Layout>
   <Header />
   <main id="main-content" data-layout="index" class="app-layout">
-    <!-- Hero -->
-    <section id="hero" class="pt-16 pb-12">
-      <h1 class="text-4xl font-bold sm:text-5xl font-display tracking-tight text-foreground">
-        Argha Ray
-      </h1>
-
-      <p class="mt-4 text-base text-foreground/60 max-w-lg leading-relaxed">
-        Software engineer in Bangalore. I build backend systems at Motorola Solutions and ship side projects when the sun goes down.
+    <!-- Intro -->
+    <section class="pt-12 pb-10">
+      <p class="text-foreground/60 leading-relaxed max-w-lg">
+        Software engineer at <strong class="text-foreground font-medium">Motorola Solutions</strong>, Bangalore.
+        I build backend systems during the day and ship
+        <a href="https://github.com/ArghaRay00" target="_blank" class="text-accent hover:underline underline-offset-4">side projects</a>
+        at night.
       </p>
-
-      <div class="mt-6 flex items-center gap-6">
-        {
-          SOCIALS.length > 0 && (
+      {
+        SOCIALS.length > 0 && (
+          <div class="mt-4 flex items-center gap-2">
             <Socials />
-          )
-        }
-        <a
-          target="_blank"
-          href="/rss.xml"
-          class="text-foreground/40 hover:text-accent transition-colors"
-          aria-label="rss feed"
-          title="RSS Feed"
-        >
-          <IconRss width={16} height={16} class="stroke-current stroke-2" />
-        </a>
-      </div>
+          </div>
+        )
+      }
     </section>
 
+    <!-- Posts -->
     {
-      featuredPosts.length > 0 && (
-        <section
-          id="featured"
-          class:list={[
-            "pt-8 pb-6 border-t border-border",
-            { "border-b border-border": recentPosts.length > 0 },
-          ]}
-        >
-          <h2 class="text-sm font-mono uppercase tracking-widest text-foreground/40 mb-6">Writing</h2>
+      allPosts.length > 0 && (
+        <section class="border-t border-border pt-8 pb-6">
+          <h2 class="text-xs font-mono uppercase tracking-widest text-foreground/35 mb-8">Writing</h2>
           <ul>
-            {featuredPosts.map(data => (
-              <Card variant="h3" {...data} />
-            ))}
-          </ul>
-        </section>
-      )
-    }
-
-    {
-      recentPosts.length > 0 && (
-        <section id="recent-posts" class="pt-8 pb-6">
-          <h2 class="text-sm font-mono uppercase tracking-widest text-foreground/40 mb-6">Recent</h2>
-          <ul>
-            {recentPosts.map(
+            {allPosts.map(
               (data, index) =>
                 index < SITE.postPerIndex && <Card variant="h3" {...data} />
             )}
@@ -83,12 +54,16 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
       )
     }
 
-    <div class="my-8 text-center">
-      <LinkButton href="/posts/">
-        All Posts
-        <IconArrowRight class="inline-block rtl:-rotate-180" />
-      </LinkButton>
-    </div>
+    {
+      allPosts.length > SITE.postPerIndex && (
+        <div class="my-8 text-center">
+          <LinkButton href="/posts/">
+            All Posts
+            <IconArrowRight class="inline-block rtl:-rotate-180" />
+          </LinkButton>
+        </div>
+      )
+    }
   </main>
   <Footer />
 </Layout>
