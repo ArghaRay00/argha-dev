@@ -7,7 +7,7 @@ I'm Argha — a software engineer in Bangalore with nine years of building thing
 
 I've written code across a lot of stacks — Java, C#, TypeScript, Python — but what I care about most is understanding how systems work end to end. From the database schema to the deployment pipeline to the thing that pages you at 2am.
 
-Lately I've been deep into what I call harness engineering — building the scaffolding that makes AI agents actually work. Tool wiring, task orchestration, knowledge systems, the layer between the model and the real world.
+Lately I've been deep into agent engineering — building the infrastructure that makes AI agents actually work in production. Tool orchestration, knowledge systems, autonomous research loops, the layer between the model and the real world.
 
 ---
 
