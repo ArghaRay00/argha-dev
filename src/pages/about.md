@@ -204,12 +204,6 @@ Still a work in progress — building it because I couldn't find a prep tool tha
 
 ---
 
-### Dyspxn-Mob · React Native, Expo, TypeScript
-
-A mobile e-commerce app for [Deys Publishing](https://deyspublishing.com/) — a Bengali book publisher. Browse catalog, search, purchase books. Built with Expo for iOS, Android, and web from one codebase. Razorpay for payments. Currently at v1.6.3.
-
-My first client project outside Motorola. Learned a lot about working with a real customer who has real opinions about how their store should look.
-
 ---
 
 ## What I work with
