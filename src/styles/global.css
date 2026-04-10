@@ -5,25 +5,25 @@
 
 :root,
 html[data-theme="light"] {
-  --background: #fafafa;
-  --foreground: #18181b;
-  --accent: #475569;
-  --accent-secondary: #64748b;
-  --muted: #f1f5f9;
-  --border: #e2e8f0;
+  --background: #fcfcfc;
+  --foreground: #111113;
+  --accent: #0066ff;
+  --accent-secondary: #0052cc;
+  --muted: #f4f5f7;
+  --border: #ebebef;
   --card: #ffffff;
-  --glow: rgba(71, 85, 105, 0.08);
+  --glow: rgba(0, 102, 255, 0.04);
 }
 
 html[data-theme="dark"] {
-  --background: #0a0a0b;
-  --foreground: #e4e4e7;
-  --accent: #94a3b8;
-  --accent-secondary: #cbd5e1;
-  --muted: #141417;
-  --border: #1e1e24;
-  --card: #0f0f12;
-  --glow: rgba(148, 163, 184, 0.06);
+  --background: #0c0c0e;
+  --foreground: #ededef;
+  --accent: #4d94ff;
+  --accent-secondary: #6babff;
+  --muted: #141416;
+  --border: #1c1c21;
+  --card: #111114;
+  --glow: rgba(77, 148, 255, 0.04);
 }
 
 @theme inline {
@@ -50,7 +50,7 @@ html[data-theme="dark"] {
     @apply overflow-y-scroll scroll-smooth;
   }
   body {
-    @apply relative flex min-h-svh flex-col bg-background font-app text-foreground antialiased selection:bg-accent/80 selection:text-white;
+    @apply relative flex min-h-svh flex-col bg-background font-app text-foreground antialiased selection:bg-accent/20 selection:text-accent;
   }
   a,
   button {
@@ -66,22 +66,9 @@ html[data-theme="dark"] {
   }
 }
 
-/* ===== Noise texture overlay ===== */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  pointer-events: none;
-  opacity: 0.025;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 256px 256px;
-}
-
 /* ===== Gradient text utility ===== */
 @utility text-gradient {
-  color: var(--accent);
+  color: var(--foreground);
 }
 
 /* ===== Glow card effect ===== */
@@ -89,13 +76,13 @@ body::before {
   position: relative;
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 0.75rem;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 0.5rem;
+  transition: border-color 0.2s ease, transform 0.2s ease;
 }
 
 .card-glow:hover {
   border-color: var(--accent);
-  box-shadow: 0 0 12px var(--glow);
+  transform: translateY(-1px);
 }
 
 /* ===== Animated underline for links ===== */
@@ -107,12 +94,12 @@ body::before {
 .link-hover::after {
   content: "";
   position: absolute;
-  bottom: -2px;
+  bottom: -1px;
   left: 0;
   width: 0;
   height: 1px;
   background: var(--accent);
-  transition: width 0.3s ease;
+  transition: width 0.2s ease;
 }
 
 .link-hover:hover::after {
@@ -129,7 +116,7 @@ body::before {
 @utility bento-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
+  gap: 0.75rem;
 }
 
 @media (max-width: 640px) {
@@ -141,16 +128,16 @@ body::before {
 /* ===== Status pulse ===== */
 @keyframes pulse-dot {
   0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
+  50% { opacity: 0.3; }
 }
 
 @utility status-dot {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  background: #22c55e;
+  background: var(--accent);
   display: inline-block;
-  animation: pulse-dot 2s ease-in-out infinite;
+  animation: pulse-dot 2.5s ease-in-out infinite;
 }
 
 /* ===== Max width + layout ===== */
@@ -162,7 +149,6 @@ body::before {
   @apply mx-auto w-full max-w-app px-4;
 }
 
-/* Source: https://piccalil.li/blog/a-more-modern-css-reset/ */
 :target {
   scroll-margin-block: 1rem;
 }
