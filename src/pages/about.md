@@ -196,6 +196,22 @@ Mostly did it to see how far .NET has come. It's come far.
 
 ---
 
+### PrepForge · Python, FastAPI, React, SQLite
+
+An interview preparation system I'm building for myself. Three thousand DSA problems sourced from LeetCode with company-wise tagging, twenty-six system design scenarios, twenty object-oriented design problems. Uses FSRS (Free Spaced Repetition Scheduler) to surface problems based on when I'm most likely to forget them. AI-powered coaching for hints and explanations, mock interview simulation.
+
+Still a work in progress — building it because I couldn't find a prep tool that combined spaced repetition with the specific problem sets I wanted.
+
+---
+
+### Dyspxn-Mob · React Native, Expo, TypeScript
+
+A mobile e-commerce app for [Deys Publishing](https://deyspublishing.com/) — a Bengali book publisher. Browse catalog, search, purchase books. Built with Expo for iOS, Android, and web from one codebase. Razorpay for payments. Currently at v1.6.3.
+
+My first client project outside Motorola. Learned a lot about working with a real customer who has real opinions about how their store should look.
+
+---
+
 ## What I work with
 
 **Day to day:** Java, TypeScript, Python, C#, Bash, SQL
