@@ -46,15 +46,32 @@ A deployment tool I wrote for the team's shared test servers. Started as a perso
 
 **OnePortal Security Hardening** · ASP.NET Core, C#, Angular
 
-Token sanitization and security refactoring across the OnePortal platform — cleaning up how tokens are passed, stored, and validated between the portal and downstream services. Ongoing work to tighten the authentication surface.
+Token sanitization and security refactoring across the OnePortal platform — cleaning up how tokens are passed, stored, and validated between the portal and downstream services.
+
+- HTTP-only cookie enforcement and secure flag propagation across all auth flows
+- Login validation hardening — tightened the authorization checks between OnePortal and downstream services (CAT, UGW)
+- Token sanitization for cross-service communication — cleaned up how JWE tokens are generated, passed, and validated through the portal's reverse proxy
+- Ongoing audit of the authentication surface to reduce exposure across multi-tenant environments
 
 **AYT Config Service** · Java 21, Spring Boot, SAP HANA, Kafka
 
-Designed a configuration authority service for the AYT analytics platform. CRUD operations for data product configurations with versioning, Kafka event publishing on config changes, and dual-database support (SAP HANA for production, PostgreSQL for development).
+Designed a configuration authority service for the AYT analytics platform — the system that manages how data from SAP SuccessFactors modules flows into analytics pipelines.
+
+- Wrote the full design document: database schema (five tables), API surface (three endpoints), five sequence diagrams, concurrency/locking strategy, security model
+- CRUD operations for data product configurations with versioning and Kafka event publishing on config changes
+- Dynamic option resolution from BizX — picklists, entity metadata, and rating scales pulled from SAP's OData APIs
+- Dual-database support: SAP HANA for production, PostgreSQL for local development — same codebase, swappable via Spring profiles
+- Lazy-load UI support for progressive module configuration loading across five SuccessFactors modules (Employee Central, Talent, Recruiting, Compensation, Time & Absence)
 
 **Agentic Engineering Workshop** · Internal training
 
-Ran a two-day internal workshop for the team on context engineering and agentic development patterns. Live coding sessions, deployer demos, prompt engineering, custom agent building. The materials are written and I'm planning a third session on MCP servers and hands-on agent building.
+Ran a multi-session internal workshop for the team on context engineering and agentic development patterns. Requested by senior management after seeing the deployer and test automation work.
+
+- **Session 1 — The Foundation:** how tooling accelerated the auth matrix work (666 tests, deployer adoption), context engineering principles, live coding demo from branch creation through PR
+- **Session 2 — Go Agentic:** live deployment demo with the deployer, MCP server walkthrough, custom agent definitions and hooks, autopilot-mode development
+- **Session 3 (planned):** VS Code Agent Mode, hands-on agent building, MCP servers deep dive
+- Created all materials from scratch: two full slide decks (Marp format), two speaker scripts, pre-session setup checklists, fallback strategies for live demos
+- Also designed fifteen no-code agent blueprints for Google Workspace Studio — PR digest, incident triage, standup generator, sprint retro summarizer, and eleven more — as a reference guide for the team
 
 ---
 
