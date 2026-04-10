@@ -15,91 +15,150 @@ Lately I've been deep into agent engineering — building the infrastructure tha
 
 **Authorization Service** · Java, Spring Boot, PostgreSQL
 
-Moved to the Database Services team and took ownership of the AuthZ microservice — the RBAC engine for the entire Kodiak PTT platform. Six user roles, thirty-five resource types, permission rulesets encoded as hex bitmasks.
+Moved to the Database Services team and took ownership of the AuthZ microservice — the RBAC engine that controls what every user across the Kodiak unified communications platform can see and do. Six user roles (SuperAdmin down to ReadOnly), thirty-five resource types, permissions encoded as hex bitmasks using a 2-bit-per-operation scheme.
 
 What I shipped:
-- Wrote the API integration test suite covering all permission combinations across roles and resources
-- Added JSR-303 input validation across the request layer
-- Refactored the monolith into cleaner service boundaries — split out the scheduler, the external request approval flow, and validation logic into separate concerns
-- Became the primary developer and reviewer on this codebase
+- Wrote the full API integration test suite — parametrized tests covering every role, resource type, and permission combination
+- Added JSR-303 input validation across all request models — the kind of thing that should've existed from day one but didn't
+- Refactored the monolith: split the request/approval flow into its own service boundary, extracted the expiration scheduler, pulled validation logic out of controllers
+- Removed a deprecated role (Replay Admin) and trimmed another's permissions based on actual usage analysis
+- Built the integration between AuthZ and CAT (Central Admin Tool) — twelve endpoints for external request management with pagination, authorization checks, and cross-service token validation
+- Became the primary developer, reviewer, and the person people come to when something breaks in this codebase
 
 **pgEdge / Asset Manager PostgreSQL** · Python, PostgreSQL, Patroni, pgBackRest
 
-Helping design the highly available PostgreSQL backend for a new service that will store 60TB of historical call recordings across two data centers.
+Helping design and validate the highly available PostgreSQL backend for a new asset management service — 60TB of historical call recordings with two-year retention, replicated across two data centers.
 
-- Built a Python wrapper around pgBackRest for automated backup and restore operations — includes monitoring (CPU, memory, disk I/O, WAL), benchmarking, and resource collection
-- Architecture: Active/Standby per site via Patroni, inter-site bi-directional replication via pgEdge, PgBouncer connection pooling, Consul for service discovery
-- Currently running the PoC — writing the knowledge base docs, presenting demos, coordinating with the architecture team
+- Built a Python wrapper around pgBackRest for automated backup and restore operations with built-in monitoring: CPU, memory, disk I/O, WAL accumulation, page cache behavior. Resource collector runs during operations and produces benchmark reports.
+- Architecture: Active/Standby per site managed by Patroni, inter-site bi-directional replication via pgEdge, PgBouncer for connection pooling, Consul for service discovery and health checks
+- Running the PoC end to end — setting up containers, writing test data generators, presenting demos to the architecture team, documenting decisions and trade-offs
+- Identified a potential open-source contribution: extending `posix_fadvise(DONTNEED)` in pgBackRest to reduce page cache pollution during large backups
 
 **Universal Deployer** · Bash
 
-A deployment tool I wrote for the team's shared test servers. Started as a script, turned into something people actually depend on.
+A deployment tool I wrote for the team's shared test servers. Started as a personal script, turned into something the whole team uses daily.
 
-- 20+ commands: deploy, rollback, restart, lock/unlock, health check with auto-rollback, snapshot, diff, audit trail
-- Used by the team daily for deploying JAR services across multiple environments
-- Golden image validation and config drift detection
+- Twenty commands: deploy, rollback, restart, stop, status, logs, diff, history, ssh, info, diag, check, lock/unlock, snapshot, audit, fix
+- Multi-user safe: deployment locking prevents concurrent deploys, per-user timestamped backups for rollback
+- Health checks with auto-rollback if the service doesn't come up healthy
+- Golden image management: snapshot a known-good deployment, compare against current state, detect config drift
+- Container-aware: works with dsh, docker, or direct SSH depending on the server setup
+
+**Agentic Engineering Workshop** · Internal training
+
+Ran a two-day internal workshop for the team on context engineering and agentic development patterns. Live coding sessions, deployer demos, prompt engineering, custom agent building. The materials are written and I'm planning a third session on MCP servers and hands-on agent building.
 
 ---
 
 ## 2025
 
-**Device Cloud Services** · TypeScript, AWS Lambda, IoT Core, DynamoDB
+**Device Cloud Services (DCS)** · TypeScript, AWS Lambda, IoT Core, DynamoDB, Serverless Framework
 
-Spent the year across the WoC (Wave OnCloud) ecosystem — the serverless layer that manages PTT devices in the field.
+Spent the year working across the WoC (Wave OnCloud) ecosystem — the serverless layer that manages hundreds of thousands of PTT devices in the field. Sixty-four Lambda functions, eight DynamoDB tables, IoT Core rules for MQTT device shadows, S3 for firmware and configurations.
 
-- Worked on Lambda functions handling device shadows, firmware updates, MQTT-based task execution
-- Investigated a major production outage — disproved the original "connection pool exhaustion" root cause, traced the real issue to TDS connection poisoning after a database disruption. The original RCA had been accepted for months. I re-opened it.
-- Helped with the carrier transition workflows and production config rollouts
+- Worked on Lambda handlers for device shadow sync, firmware upgrade flows, task execution, and connect/disconnect lifecycle events
+- Helped with production config rollouts for expanded regional support
+- **Investigated a major production outage**: the existing RCA blamed "connection pool exhaustion." I dug into CloudTrail logs, parsed 502 TDS error patterns, and proved the real cause was database connection poisoning — dead connections sitting in the pool after an RDS connectivity disruption. The IIS worker recycle at 7 PM fixed it, not the manual SELECT query. The original RCA had been accepted for months.
+- Mapped the full AWS infrastructure: 55 VPCs, 353 Lambda functions, 37 DynamoDB tables, 15 RDS instances, 45 IoT Core rules across production and non-production accounts
 
-**Provisioning Configuration** · Java, Spring Boot
+**Provisioning & Configuration** · Java, Spring Boot
 
-Started touching the authorization and CAT (Central Admin Tool) codebases that would become my main focus in 2026. Built the Requests & Approvals API integration between CAT and AuthZ — twelve endpoints with pagination, expiration scheduling, and cross-service authorization.
+Started working on the CAT (Central Admin Tool) codebase — the admin interface for PTT user management. Built the Requests & Approvals module: twelve API endpoints for external request lifecycle management with pagination, expiration scheduling, and authorization integration. This work fed directly into the deeper AuthZ involvement in 2026.
+
+**WoC Portal Operations** · .NET, C#, IIS, AWS
+
+Continued supporting the OnePortal/WoC portal — Windows IIS operations, AMI setup, stack management. Handled certificate renewals, environment-specific debugging, and the kind of operational work that teaches you how production systems actually behave.
 
 ---
 
 ## 2023 – 2024
 
-**OnePortal** · Angular, ASP.NET Core, C#, SQL Server, Entity Framework, AWS
+**OnePortal** · Angular 5→19, ASP.NET Core, C#, SQL Server, Entity Framework, AWS
 
-The most intense stretch. OnePortal is Motorola's multi-tenant provisioning portal for the entire PTT platform — device lifecycle, subscriber management, carrier integrations, certificate management. I was full-stack on this for two years.
+The most intense stretch. OnePortal is Motorola's multi-tenant provisioning portal for the entire PTT platform — device lifecycle management, subscriber provisioning, carrier integrations, certificate management, role-based access. Full-stack ownership across a large Angular frontend and ASP.NET Core backend with 90+ database entities.
 
-Some of the bigger things I worked on:
+The bigger features I built:
 
-- **Device cloning** — built the multi-zone device cloning feature end to end, spanning the Kodiak subscriber API, the group API, and the portal UI. Notifications, role-based access, cross-zone association.
-- **Carrier transition** — handled the migration from Telna to WirelessLogic as the MVNO carrier. API integration, webhook updates, subscriber lifecycle changes.
-- **Webhook integrations** — built the webhook layer connecting OnePortal to the Device Cloud Services for real-time device state updates.
-- **Certificate management** — WiFi Enterprise certificate distribution to devices through the portal.
-- **Production support** — SIT, UAT, and production deployments. Environment-specific debugging. The kind of work where you learn how things really break.
+- **Device cloning** — the full multi-zone device cloning feature: Kodiak subscriber API integration, group API changes, portal UI, notifications, role-based access, and cross-zone association. This became one of the patent candidates.
+- **Carrier transition** — managed the migration from Telna to WirelessLogic as the primary MVNO carrier. New API integration, webhook updates, subscriber lifecycle changes, regression testing across environments.
+- **Webhook integrations** — built the webhook layer connecting OnePortal to Device Cloud Services for real-time device state updates. License update webhooks for SMP and reseller entities.
+- **Certificate management** — WiFi Enterprise certificate distribution to devices through the portal, including S3 key format updates and expiration date extraction.
+- **User preferences system** — designed and implemented user preferences with Hangfire background job scheduling for batch operations.
+- **Subscription management** — license activation/deactivation flows, SIM management, package upgrades/downgrades across multiple carrier APIs.
+- **Load testing** — loaded 5,000 subscribers and ran performance tests to find bottlenecks in the listing pages and Entity Framework queries.
+- **Security hardening** — HTTP-only flags, secure cookies, login validation, authorization analysis.
+- **Production support** — SIT, UAT, and production deployments across multiple environments (dev, qa, uat, test, iac, stub). The kind of work where you learn how real systems fail.
 
-During a quieter quarter in late 2023, I did an IPR analysis across the codebase and identified **seven patent candidates** — including multi-zone device cloning, WiFi enterprise certificate distribution, multi-carrier MVNO federation, and a dual-token cross-validation pattern with JWE enrichment.
-
-The portal has 28 API controllers, 90+ database entities, Okta authentication with JWE tokens, and integrations with six different MVNO carriers, Salesforce, Mulesoft, and AWS. I touched most of it.
+During a quieter quarter in late 2023, I did an IPR analysis and identified **seven patent candidates**: multi-zone device cloning with selective cross-association, WiFi enterprise certificate distribution, multi-carrier MVNO federation with lifecycle normalization, MQTT topic-encoded bidirectional task protocol, dual-token cross-validation with JWE enrichment, cascading multi-service rollback with DB-backed locks, and composite unique constraint validation via Elasticsearch.
 
 ---
 
 ## 2021 – 2022
 
-**OnePortal** · Angular, ASP.NET Core, .NET Framework → .NET Core, SQL Server
+**OnePortal** · Angular, ASP.NET Core, .NET Framework → .NET Core, SQL Server, AWS IoT
 
-Joined the OnePortal team. The first real project — migrating the MVNO carrier integration layer from legacy .NET Framework to .NET Core.
+Joined the OnePortal team. Started from zero on this codebase and grew into owning large parts of it within a year and a half.
+
+First project — migrating the MVNO carrier integration layer from legacy .NET Framework to .NET Core:
 
 - Migrated six carrier APIs — BeQuick, Telna, IIJ, CiscoJasper, WirelessLogic, HotMobile — each with their own authentication patterns, request formats, and failure modes
-- Wrote unit tests for all of them. This was the first time the carrier layer had test coverage.
-- Built the device management UI — listing pages, device parameter configuration (WiFi, Bluetooth, APN, location, stun/unstun), IoT shadow integration
-- Built the device DM (Device Management) action layer — APN profiles, WiFi Enterprise, Bluetooth config, radio wipe, device restart, all integrated with the AWS IoT backend
-- Handled the Okta integration for the portal, including cookie handling, token passing, and CAT/UGW URL rewriting
+- Wrote unit tests for all of them. This was the first time the carrier layer had any test coverage.
+- Built the BeQuick webhook integration from scratch — API development, testing, production deployment
 
-By the end of 2022, I was running production deployments, doing code reviews, and supporting QA across SIT and UAT environments. The codebase went from something I was learning to something I was responsible for.
+Then moved into device management — the core of what OnePortal does:
+
+- Built the full device listing UI — All/Users/Devices views with show/hide columns, filtering, sorting, pagination
+- Device parameter configuration: WiFi (including Enterprise with certificate support), Bluetooth, APN profiles, location settings, stun/unstun — all integrated with the AWS IoT device shadow backend
+- Device actions: radio wipe, restart, activate/deactivate, package upgrade/downgrade, DM cloning
+- Okta integration: cookie handling, token passing, CAT/UGW URL rewriting through the portal's reverse proxy setup
+- Concurrency fixes: resolved Entity Framework DbContext issues when multiple operations ran in parallel
+- Unit of Work pattern implementation across the repository layer
+
+By the end of 2022, I was handling production deployments, doing code reviews, running SIT/UAT support, and training new team members on the codebase. The learning curve was steep, but once I was on the other side of it, I was the person the team relied on.
 
 ---
 
-## Side projects
+## What I build at night
 
-**Streaming platform** — A TVOD platform for on-demand movie rentals. NestJS backend, React frontend, Shaka Player for HLS playback. I built two versions: one self-hosted on a free Oracle ARM VPS, and one integrated with Bunny Stream CDN with per-segment token authentication. Learned a lot about video delivery, caching strategies, and DRM — and [wrote about it](/posts/streaming-video-on-a-zero-dollar-server).
+### Jishu — a personal AI agent · Python, FastAPI, Claude API, SearXNG
 
-**Personal AI agent** — An agent that runs 24/7 on my VPS. Python, FastAPI, Telegram bot. It has its own cognitive architecture — different modes for listening, advising, researching. It searches the web, writes daily reviews, maintains a knowledge base, and talks in romanized Bengali. Still evolving.
+This is the project I'm most proud of right now. Jishu is a 24/7 autonomous agent that runs on my VPS, talks to me on Telegram in romanized Bengali, and knows practically everything about my work and life.
 
-**OnlineExam** — An exam management system I originally wrote in college with .NET Framework 4.5. Rewrote it from scratch in .NET 9 with Clean Architecture — Carter for endpoints, MediatR for CQRS, EF Core 9 for data access, xUnit for tests, GitHub Actions for CI. Twenty-plus endpoints covering auth, admin CRUD, exam management, and auto-grading.
+It started as a simple chatbot. Then I gave it a knowledge base — a git-synced markdown repository with 3,000+ files covering every project, decision, memory, and relationship. Then I gave it a mind.
+
+Jishu has a cognitive architecture with three layers:
+
+- **Core** — a soul (origin, identity), a dharma (five sacred callings that guide behavior), and a vaani (voice system for natural Banglish — romanized Bengali mixed with English)
+- **Perception** — emotional attunement (reading mood from text patterns), life season awareness (wedding prep stress vs. builder energy vs. work sprint), and signal detection
+- **Cognition** — seven Bengali modes of engagement: *Shravan* (listening), *Adda* (vibing), *Mantrana* (counsel), *Jigyasa* (brainstorming), *Anusandhan* (research), *Utsav* (celebration), *Satarka* (gentle alert). Plus two instincts: *Mounotaa* (silence — knowing when not to respond) and *Khabar* (checking in after absence)
+
+It does things on its own — morning nudges at 6 AM, daily reviews at 10 PM, weekly synthesis, a Karpathy-inspired auto-research loop that searches the web three times a day and brings back one curated insight. It writes its own journal reflecting on how conversations went. It compiles wiki pages from raw sources automatically.
+
+There's a [guest web chat](https://jishu.argha.dev/chat) where anyone can talk to Jishu about me. When guests have conversations, Jishu extracts insights from them — new facts, outside perspectives, corrections — and gets smarter from every interaction.
+
+The stack: FastAPI, self-hosted SearXNG for web search (no API keys, unlimited), APScheduler for cron, Groq Whisper for voice transcription, GitHub webhook for auto-sync, CI/CD via GitHub Actions.
+
+Everything deploys to a single Oracle ARM VPS behind a Cloudflare Tunnel. Total infrastructure cost: about seventy rupees a month.
+
+---
+
+### Streaming platform · NestJS, React, Shaka Player, Bunny Stream
+
+A TVOD platform for on-demand movie rentals — the kind where you buy a ticket to watch, not a subscription. I built two versions:
+
+The first was self-hosted: HLS video encoding with ffmpeg, Caddy as the reverse proxy serving segments, stream session tracking, JWT authentication — all running on the same free Oracle VPS. Cost: zero.
+
+The second swapped the delivery layer for Bunny Stream CDN with per-segment token authentication via Shaka Player's network engine. I [wrote about the whole journey](/posts/streaming-video-on-a-zero-dollar-server) — including every bug that cost me hours, why I chose Bunny over VdoCipher and AWS, and the HLS token auth problem that turned out to be unsolvable without DRM.
+
+The interesting part: swapping from self-hosted to CDN required changing the delivery layer but zero changes to auth, sessions, or the player. The architecture held.
+
+---
+
+### OnlineExam · .NET 9, Clean Architecture
+
+An exam management system I originally built in college using .NET Framework 4.5. A decade later, I rewrote it from scratch in .NET 9 — Clean Architecture with Carter for minimal endpoints, MediatR for CQRS, EF Core 9, PostgreSQL, xUnit tests, and GitHub Actions CI. Twenty-plus endpoints, auto-grading, the works.
+
+Mostly did it to see how far .NET has come. It's come far.
 
 ---
 
