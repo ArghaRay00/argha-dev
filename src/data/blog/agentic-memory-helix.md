@@ -1,6 +1,6 @@
 ---
 author: Argha Ray
-pubDatetime: 2026-04-11T14:00:00Z
+pubDatetime: 2026-04-11T04:00:00Z
 title: "Giving an AI Agent Memory That Survives the Session"
 slug: giving-an-ai-agent-memory-that-survives-the-session
 featured: true
