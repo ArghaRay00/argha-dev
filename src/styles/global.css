@@ -5,25 +5,25 @@
 
 :root,
 html[data-theme="light"] {
-  --background: #fafaf9;
-  --foreground: #0c0a09;
-  --accent: #ea580c;
-  --accent-secondary: #db2777;
-  --muted: #f4f4f5;
-  --border: #e4e4e7;
+  --background: #fafafa;
+  --foreground: #18181b;
+  --accent: #475569;
+  --accent-secondary: #64748b;
+  --muted: #f1f5f9;
+  --border: #e2e8f0;
   --card: #ffffff;
-  --glow: rgba(234, 88, 12, 0.15);
+  --glow: rgba(71, 85, 105, 0.08);
 }
 
 html[data-theme="dark"] {
-  --background: #09090b;
-  --foreground: #fafafa;
-  --accent: #f97316;
-  --accent-secondary: #ec4899;
-  --muted: #18181b;
-  --border: #27272a;
+  --background: #0a0a0b;
+  --foreground: #e4e4e7;
+  --accent: #94a3b8;
+  --accent-secondary: #cbd5e1;
+  --muted: #141417;
+  --border: #1e1e24;
   --card: #0f0f12;
-  --glow: rgba(249, 115, 22, 0.12);
+  --glow: rgba(148, 163, 184, 0.06);
 }
 
 @theme inline {
@@ -81,10 +81,7 @@ body::before {
 
 /* ===== Gradient text utility ===== */
 @utility text-gradient {
-  background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--accent);
 }
 
 /* ===== Glow card effect ===== */
@@ -98,7 +95,7 @@ body::before {
 
 .card-glow:hover {
   border-color: var(--accent);
-  box-shadow: 0 0 20px var(--glow), 0 0 40px var(--glow);
+  box-shadow: 0 0 12px var(--glow);
 }
 
 /* ===== Animated underline for links ===== */
@@ -113,8 +110,8 @@ body::before {
   bottom: -2px;
   left: 0;
   width: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+  height: 1px;
+  background: var(--accent);
   transition: width 0.3s ease;
 }
 
@@ -122,11 +119,10 @@ body::before {
   width: 100%;
 }
 
-/* ===== Active nav with gradient ===== */
+/* ===== Active nav ===== */
 .active-nav {
-  @apply underline decoration-2 underline-offset-8;
+  @apply underline decoration-1 underline-offset-8;
   text-decoration-color: var(--accent);
-  text-decoration-style: wavy;
 }
 
 /* ===== Bento grid ===== */
