@@ -14,7 +14,7 @@
     }
 
     h3 {
-      @apply italic;
+      @apply not-italic font-semibold;
     }
 
     p,
