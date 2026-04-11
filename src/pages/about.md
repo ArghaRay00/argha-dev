@@ -26,7 +26,7 @@ For the full professional record, see my [CV](/cv).
 
 **[OnlineExam](https://github.com/ArghaRay00/OnlineExam)** — college project rewritten a decade later in .NET 9. Clean Architecture, Carter, MediatR, EF Core 9, PostgreSQL, xUnit, GitHub Actions CI. Twenty-plus endpoints with auto-grading.
 
-**Jira Ticket Creator** — VS Code extension for creating Jira tickets with AI. Cookie auth for enterprise Jira behind SSO/IAP. JavaScript, Copilot LM API.
+**[Jira Ticket Creator](https://github.com/ArghaRay00/jira-ticket-creator)** — VS Code extension for creating Jira tickets with AI. Cookie auth for enterprise Jira behind SSO/IAP. JavaScript, Copilot LM API.
 
 **[argha.dev](https://argha.dev)** — this site. Astro, Tailwind CSS, Cloudflare Pages.
 
