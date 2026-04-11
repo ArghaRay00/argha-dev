@@ -169,6 +169,44 @@ By the end of 2022, I was handling production deployments, doing code reviews, r
 
 ---
 
+## 2017 – 2021
+
+**First American (India)** · Angular, ASP.NET Core, .NET Core, SQL Server, Google Maps API, AWS
+
+Four and a half years across three roles, all in Bengaluru. Started as a technical trainee, left as a software engineer building customer-facing products.
+
+**Software Engineer** · Apr 2019 – Aug 2021
+
+Properties Team:
+- Piloted the project — set up the structure, created quick POCs that helped shape the product
+- Built property search via map click, address search, and APN search
+- Integrated xUnit framework for unit testing across projects
+- Developed GlobalNav — a JavaScript library consumed at runtime across applications
+- Designed reports: Property Detail, School Information, Transaction History using ActiveReports
+
+Eagle-Status Team:
+- Extended multi-select dropdown, created custom drag-and-drop directives using DOM APIs
+- Optimized AgGrid to load large row counts at startup
+- Set up HMR (Hot Module Reloading) in Angular with .NET Core
+- Fixed 20+ critical UI bugs that unblocked initial release
+
+**Member Technical Staff** · Aug 2017 – Mar 2019
+
+MyFirstAm Team:
+- Built zip code property search, REST APIs for property data and reports from DataTree
+- Built an adapter layer for WCF to DTAPI migration
+- Saved ~$80K/year by implementing Static Street View instead of Panoramic View for all calls
+- Wrote Terraform scripts for AWS infrastructure as part of cloud migration
+
+**Technical Trainee** · Feb 2017 – Aug 2017
+
+Budget-Aid Team:
+- Redesigned the UI using razor views and jQuery
+- Introduced unit testing, increased test coverage by 20%
+- Migrated the project from MVC to WebAPI
+
+---
+
 ## What I build at night
 
 ### Jishu — a personal AI agent · Python, FastAPI, Claude API, SearXNG
@@ -213,11 +251,23 @@ Mostly did it to see how far .NET has come. It's come far.
 
 ---
 
-### PrepForge · Python, FastAPI, React, SQLite
+### harnesskit — agent orchestration framework · TypeScript
 
-An interview preparation system I'm building for myself. Three thousand DSA problems sourced from LeetCode with company-wise tagging, twenty-six system design scenarios, twenty object-oriented design problems. Uses FSRS (Free Spaced Repetition Scheduler) to surface problems based on when I'm most likely to forget them. AI-powered coaching for hints and explanations, mock interview simulation.
+An open-source framework extracting production agent patterns into reusable modules. Tool registry with Zod schemas and permission levels. Query loop (input → context → model call → tool calls → repeat). Permission engine with deny/ask/allow cascade. Context manager with cache-aware compaction. Agent spawner with worktree isolation. Hook system with lifecycle events. Model router with tiered selection and fallback.
 
-Still a work in progress — building it because I couldn't find a prep tool that combined spaced repetition with the specific problem sets I wanted.
+The core idea: three intelligence levels — rule-based (no model, $0), hybrid (local model), and full agent (cloud model) — all running on the same architecture. The model is optional. The harness isn't.
+
+---
+
+### Helix — personal knowledge system · Markdown, Git, Python
+
+The memory layer behind Jishu. A git repo of markdown files organized into four layers: immutable raw sources (work context, memories, plans, investigations), active state (goals, decisions, journal, feedback), personal context (rhythms, aspirations, relationships), and cognitive architecture (how Jishu thinks). Replaced a vector database (Milvus + Ollama embeddings) — prompt caching made flat file reads cheaper and more reliable than embed-retrieve-inject. [Wrote about the full design](/posts/giving-an-ai-agent-memory-that-survives-the-session).
+
+---
+
+### Jira Ticket Creator · JavaScript, VS Code Extension API, Copilot LM API
+
+A zero-dependency VS Code extension for creating Jira tickets with AI assistance. Describe what you need, the extension generates summary, description, type, priority, and labels. Single and bulk ticket creation. Supports cookie auth for enterprise Jira behind SSO/IAP — built specifically to work with Motorola's Google Cloud IAP setup. Distributed to the team via GitHub Releases.
 
 ---
 
