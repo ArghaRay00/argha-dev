@@ -1,6 +1,7 @@
 ---
 layout: ../layouts/AboutLayout.astro
 title: "CV"
+description: "CV of Argha Ray — Senior Software Engineer at Motorola Solutions. Nine years in Java, C#, TypeScript, Python. RBAC engines, HA PostgreSQL, deployment tooling, agent engineering. Open to remote roles."
 ---
 
 # Argha Ray

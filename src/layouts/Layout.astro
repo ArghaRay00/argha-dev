@@ -31,6 +31,13 @@ const {
 
 const socialImageURL = new URL(ogImage, Astro.url);
 
+const personSchema = {
+  "@type": "Person",
+  name: `${author}`,
+  url: "https://argha.dev",
+  ...(profile && { sameAs: [profile, "https://www.linkedin.com/in/argha94", "https://x.com/argharay94"] }),
+};
+
 const structuredData = pubDatetime
   ? {
       "@context": "https://schema.org",
@@ -39,24 +46,15 @@ const structuredData = pubDatetime
       image: `${socialImageURL}`,
       datePublished: pubDatetime.toISOString(),
       ...(modDatetime && { dateModified: modDatetime.toISOString() }),
-      author: [
-        {
-          "@type": "Person",
-          name: `${author}`,
-          ...(profile && { url: profile }),
-        },
-      ],
+      author: [personSchema],
     }
   : {
       "@context": "https://schema.org",
       "@type": "WebSite",
       name: `${title}`,
       url: `${canonicalURL}`,
-      author: {
-        "@type": "Person",
-        name: `${author}`,
-        ...(profile && { url: profile }),
-      },
+      description: `${description}`,
+      author: personSchema,
     };
 ---
 
@@ -100,6 +98,11 @@ const structuredData = pubDatetime
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:image" content={socialImageURL} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:site_name" content={SITE.title} />
+    <meta property="og:locale" content="en_US" />
 
     <!-- Article Published/Modified time -->
     {
@@ -125,6 +128,9 @@ const structuredData = pubDatetime
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={socialImageURL} />
+    <meta property="twitter:image:width" content="1200" />
+    <meta property="twitter:image:height" content="630" />
+    <meta name="twitter:creator" content="@argharay94" />
 
     <!-- Google JSON-LD Structured data -->
     <script
