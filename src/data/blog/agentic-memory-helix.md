@@ -13,6 +13,8 @@ tags:
 description: "How a folder of markdown files became the memory layer for a personal AI agent — and why it replaced a vector database."
 ---
 
+## Table of contents
+
 Every conversation with an LLM starts the same way: blank slate. No matter how good the last session was, the next one begins with zero context. The model doesn't remember what it said, what you decided, what went wrong, or what you're working on.
 
 For a chatbot, this is fine. For an agent that's supposed to _know you_ — your projects, your patterns, your decisions, your goals — this is the core problem.

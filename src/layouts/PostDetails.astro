@@ -37,6 +37,10 @@ const {
 
 const { Content } = await render(post);
 
+const WORDS_PER_MINUTE = 200;
+const wordCount = post.body ? post.body.split(/\s+/).length : 0;
+const readingTime = Math.max(1, Math.ceil(wordCount / WORDS_PER_MINUTE));
+
 let ogImageUrl: string | undefined;
 
 // Determine OG image source
@@ -98,6 +102,8 @@ const nextPost =
     </h1>
     <div class="my-2 flex items-center gap-2">
       <Datetime {pubDatetime} {modDatetime} {timezone} size="lg" />
+      <span aria-hidden="true" class="text-foreground/30">·</span>
+      <span class="text-sm text-foreground/50">{readingTime} min read</span>
       <span
         aria-hidden="true"
         class:list={[

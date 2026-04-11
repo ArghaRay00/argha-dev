@@ -12,6 +12,8 @@ tags:
 description: "Part 2 of the streaming POC series. I swapped self-hosted HLS for Bunny Stream CDN with per-segment token authentication via Shaka Player — every gotcha, cost comparison, and architectural decision along the way."
 ---
 
+## Table of contents
+
 **Part 1:** [Streaming Video on a Zero-Dollar Server](https://argha.dev/posts/streaming-video-on-a-zero-dollar-server)
 
 **Status:** Raw notes — not polished prose yet.

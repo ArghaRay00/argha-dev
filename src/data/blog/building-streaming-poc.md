@@ -12,6 +12,8 @@ tags:
 description: A working HLS video streaming proof of concept on an Oracle Always Free ARM server. Every mistake made along the way, and what actually worked.
 ---
 
+## Table of contents
+
 A TVOD (transactional video-on-demand) platform — the kind where users buy tickets to watch movies instead of paying a monthly subscription. Think Apple TV rentals, not Netflix. The backend was coming along: NestJS monolith, PostgreSQL, JWT auth, movie catalog, ticket purchases, all test-driven. But the most important question was still open: _can the thing actually stream video?_
 
 Design docs are comfortable. They describe CMAF packaging, multi-DRM with Widevine and FairPlay, CloudFront signed cookies, adaptive bitrate ladders. Everything sounds great on paper. But paper doesn't buffer.
