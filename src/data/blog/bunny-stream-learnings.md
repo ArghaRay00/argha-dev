@@ -9,8 +9,6 @@ tags:
   - streaming
   - nestjs
   - architecture
-  - cdn
-  - bunny
 description: "Part 2 of the streaming POC series. I swapped self-hosted HLS for Bunny Stream CDN with per-segment token authentication via Shaka Player — every gotcha, cost comparison, and architectural decision along the way."
 ---
 

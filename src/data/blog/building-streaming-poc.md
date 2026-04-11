@@ -9,8 +9,6 @@ tags:
   - streaming
   - nestjs
   - architecture
-  - devops
-  - hls
 description: A working HLS video streaming proof of concept on an Oracle Always Free ARM server. Every mistake made along the way, and what actually worked.
 ---
 
