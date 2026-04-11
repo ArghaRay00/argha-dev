@@ -20,7 +20,7 @@ For the full professional record, see my [CV](/cv).
 
 **Streaming Platform** — TVOD platform for on-demand movie rentals. Built two versions — self-hosted HLS on a free Oracle VPS (zero cost) and Bunny Stream CDN with per-segment token auth. Swapping the delivery layer required zero changes to auth, sessions, or the player. I wrote about the [full journey](/posts/streaming-video-on-a-zero-dollar-server). NestJS, React, Shaka Player, PostgreSQL.
 
-**harnesskit** — agent orchestration framework. Tool registry, permission engine, query loop, context manager with cache-aware compaction, agent spawner, hook system, model router. Three intelligence levels — rule-based (no model, $0), hybrid (local model), full agent (cloud model) — same architecture across all three. TypeScript, model-agnostic.
+**[harnesskit](https://github.com/ArghaRay00/harnesskit)** — agent orchestration framework. Tool registry, permission engine, query loop, context manager with cache-aware compaction, agent spawner, hook system, model router. Three intelligence levels — rule-based (no model, $0), hybrid (local model), full agent (cloud model) — same architecture across all three. TypeScript, model-agnostic.
 
 **[Helix](https://github.com/ArghaRay00/helix)** — personal knowledge system that replaced a vector database. Four-layer architecture of markdown files, git-synced across devices. Powers Jishu's memory. I wrote about [the design](/posts/giving-an-ai-agent-memory-that-survives-the-session). Markdown, Git, Python.
 
