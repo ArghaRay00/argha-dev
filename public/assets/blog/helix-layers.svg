@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" font-family="'Caveat','Comic Sans MS',cursive" font-size="18">
+  <defs>
+    <filter id="sketch" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" seed="3"/>
+      <feDisplacementMap in="SourceGraphic" scale="2"/>
+    </filter>
+    <style>
+      .box { fill: none; stroke: #1f2937; stroke-width: 2.5; filter: url(#sketch); }
+      .cognitive { fill: #fef3c7; }
+      .active    { fill: #fee2e2; }
+      .about     { fill: #dbeafe; }
+      .raw       { fill: #dcfce7; }
+      .label     { fill: #111827; font-weight: 600; }
+      .sub       { fill: #374151; font-size: 14px; }
+      .tag       { fill: #6b7280; font-size: 13px; font-style: italic; }
+      .title     { font-size: 28px; fill: #111827; font-weight: 700; }
+    </style>
+  </defs>
+
+  <text x="450" y="40" text-anchor="middle" class="title">Helix — four layers, four write semantics</text>
+
+  <g transform="translate(40,80)">
+    <rect class="cognitive" x="0" y="0" width="380" height="200" rx="10" filter="url(#sketch)"/>
+    <rect class="box"       x="0" y="0" width="380" height="200" rx="10"/>
+    <text x="190" y="34" text-anchor="middle" class="label" font-size="22">jishu/ — cognitive layer</text>
+    <text x="190" y="58" text-anchor="middle" class="sub">who the agent IS</text>
+    <text x="30"  y="92"  class="sub">core/ — soul, dharma, voice</text>
+    <text x="30"  y="118" class="sub">perception/ — presence, signals</text>
+    <text x="30"  y="144" class="sub">cognition/ — adda, curiosity</text>
+    <text x="30"  y="170" class="sub">evolution/ — growth, rituals</text>
+    <text x="190" y="194" text-anchor="middle" class="tag">read every request · rarely writes</text>
+  </g>
+
+  <g transform="translate(480,80)">
+    <rect class="about" x="0" y="0" width="380" height="200" rx="10" filter="url(#sketch)"/>
+    <rect class="box"   x="0" y="0" width="380" height="200" rx="10"/>
+    <text x="190" y="34" text-anchor="middle" class="label" font-size="22">about/ — human context</text>
+    <text x="190" y="58" text-anchor="middle" class="sub">who the user is</text>
+    <text x="30"  y="92"  class="sub">rhythms.md</text>
+    <text x="30"  y="118" class="sub">aspirations.md</text>
+    <text x="30"  y="144" class="sub">relationships.md</text>
+    <text x="30"  y="170" class="sub">capabilities.md</text>
+    <text x="190" y="194" text-anchor="middle" class="tag">read often · updated on life shifts</text>
+  </g>
+
+  <g transform="translate(40,310)">
+    <rect class="active" x="0" y="0" width="380" height="200" rx="10" filter="url(#sketch)"/>
+    <rect class="box"    x="0" y="0" width="380" height="200" rx="10"/>
+    <text x="190" y="34" text-anchor="middle" class="label" font-size="22">active/ — living state</text>
+    <text x="190" y="58" text-anchor="middle" class="sub">what is happening now</text>
+    <text x="30"  y="92"  class="sub">goals/active.md</text>
+    <text x="30"  y="118" class="sub">decisions/log.md</text>
+    <text x="30"  y="144" class="sub">journal/daily + weekly</text>
+    <text x="30"  y="170" class="sub">feedback/ + wiki/</text>
+    <text x="190" y="194" text-anchor="middle" class="tag">agent writes here · reviews + reflections</text>
+  </g>
+
+  <g transform="translate(480,310)">
+    <rect class="raw" x="0" y="0" width="380" height="200" rx="10" filter="url(#sketch)"/>
+    <rect class="box" x="0" y="0" width="380" height="200" rx="10"/>
+    <text x="190" y="34" text-anchor="middle" class="label" font-size="22">raw/ — immutable archive</text>
+    <text x="190" y="58" text-anchor="middle" class="sub">append-only, never modify</text>
+    <text x="30"  y="92"  class="sub">memories/ — Claude Code scopes</text>
+    <text x="30"  y="118" class="sub">plans/ — implementation plans</text>
+    <text x="30"  y="144" class="sub">work/ — 14 project domains</text>
+    <text x="30"  y="170" class="sub">signals/ — RCAs, investigations</text>
+    <text x="190" y="194" text-anchor="middle" class="tag">ingested daily at 3 AM · source of truth</text>
+  </g>
+</svg>

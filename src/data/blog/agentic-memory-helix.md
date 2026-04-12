@@ -1,7 +1,7 @@
 ---
 author: Argha Ray
 pubDatetime: 2026-04-10T22:00:00Z
-title: "Giving an AI Agent Memory That Survives the Session"
+title: "Why My AI Agent Uses a Folder of Markdown Files Instead of a Vector Database"
 slug: giving-an-ai-agent-memory-that-survives-the-session
 featured: true
 draft: false
@@ -22,6 +22,8 @@ For a chatbot, this is fine. For an agent that's supposed to _know you_ — your
 This is a writeup of Helix, the knowledge base behind [Jishu](https://jishu.argha.dev), a personal AI agent that runs 24/7 on a VPS. Helix is how Jishu remembers anything across sessions. It's not a vector database. It's not a RAG pipeline. It's a git repo full of markdown files.
 
 That sounds underwhelming. It took a while to get here.
+
+**The short version:** I started with Milvus + Ollama + an MCP server for semantic retrieval. It worked. Then I ripped it all out — about 3 GB of local tooling — and replaced it with direct file reads plus Anthropic's prompt caching. The agent got better, not worse. This post is why.
 
 ## The Vector Database Phase
 
@@ -80,6 +82,8 @@ helix/
     ├── signals/     ← Investigations, RCAs
     └── ingested/    ← Extraction outputs
 ```
+
+![Helix four-layer architecture showing cognitive, about, active, and raw layers with their write semantics](/assets/blog/helix-layers.svg)
 
 The layers aren't just organizational. They have different rules:
 

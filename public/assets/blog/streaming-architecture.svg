@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" font-family="'Caveat','Comic Sans MS',cursive" font-size="18">
+  <defs>
+    <filter id="sketch2" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" seed="7"/>
+      <feDisplacementMap in="SourceGraphic" scale="2"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2937"/>
+    </marker>
+    <style>
+      .box { fill:none; stroke:#1f2937; stroke-width:2.5; filter:url(#sketch2); }
+      .line { stroke:#1f2937; stroke-width:2.5; fill:none; filter:url(#sketch2); }
+      .browser { fill:#e0e7ff; }
+      .cloud   { fill:#dbeafe; }
+      .caddy   { fill:#fef3c7; }
+      .service { fill:#dcfce7; }
+      .media   { fill:#fce7f3; }
+      .label   { fill:#111827; font-weight:600; }
+      .sub     { fill:#374151; font-size:14px; }
+      .tag     { fill:#6b7280; font-size:13px; font-style:italic; }
+      .title   { font-size:26px; fill:#111827; font-weight:700; }
+    </style>
+  </defs>
+
+  <text x="450" y="36" text-anchor="middle" class="title">single-origin reverse proxy · one domain, no CORS</text>
+
+  <g transform="translate(40,80)">
+    <rect class="browser" x="0" y="30" width="150" height="90" rx="10" filter="url(#sketch2)"/>
+    <rect class="box"     x="0" y="30" width="150" height="90" rx="10"/>
+    <text x="75" y="68"  text-anchor="middle" class="label">browser</text>
+    <text x="75" y="92"  text-anchor="middle" class="sub">Shaka Player</text>
+    <text x="75" y="110" text-anchor="middle" class="tag">one domain</text>
+  </g>
+
+  <path class="line" d="M 195 155 L 265 155" marker-end="url(#arrow)"/>
+
+  <g transform="translate(270,80)">
+    <rect class="cloud" x="0" y="30" width="170" height="90" rx="10" filter="url(#sketch2)"/>
+    <rect class="box"   x="0" y="30" width="170" height="90" rx="10"/>
+    <text x="85" y="68"  text-anchor="middle" class="label">Cloudflare Tunnel</text>
+    <text x="85" y="92"  text-anchor="middle" class="sub">TLS + DDoS</text>
+    <text x="85" y="110" text-anchor="middle" class="tag">no open ports</text>
+  </g>
+
+  <path class="line" d="M 445 155 L 515 155" marker-end="url(#arrow)"/>
+
+  <g transform="translate(520,80)">
+    <rect class="caddy" x="0" y="30" width="330" height="90" rx="10" filter="url(#sketch2)"/>
+    <rect class="box"   x="0" y="30" width="330" height="90" rx="10"/>
+    <text x="165" y="68"  text-anchor="middle" class="label">Caddy reverse proxy</text>
+    <text x="165" y="92"  text-anchor="middle" class="sub">25-line config · 3 route blocks</text>
+    <text x="165" y="110" text-anchor="middle" class="tag">frontend · api · media</text>
+  </g>
+
+  <path class="line" d="M 685 225 L 685 275" marker-end="url(#arrow)"/>
+  <path class="line" d="M 575 225 L 300 305" marker-end="url(#arrow)"/>
+  <path class="line" d="M 800 225 L 800 275" marker-end="url(#arrow)"/>
+
+  <g transform="translate(220,290)">
+    <rect class="service" x="0" y="0" width="170" height="100" rx="10" filter="url(#sketch2)"/>
+    <rect class="box"     x="0" y="0" width="170" height="100" rx="10"/>
+    <text x="85" y="38"  text-anchor="middle" class="label">/ frontend</text>
+    <text x="85" y="62"  text-anchor="middle" class="sub">React + Vite</text>
+    <text x="85" y="82"  text-anchor="middle" class="tag">static SPA</text>
+  </g>
+
+  <g transform="translate(600,290)">
+    <rect class="service" x="0" y="0" width="170" height="100" rx="10" filter="url(#sketch2)"/>
+    <rect class="box"     x="0" y="0" width="170" height="100" rx="10"/>
+    <text x="85" y="38"  text-anchor="middle" class="label">/api/*</text>
+    <text x="85" y="62"  text-anchor="middle" class="sub">NestJS · JWT · sessions</text>
+    <text x="85" y="82"  text-anchor="middle" class="tag">same-origin cookies</text>
+  </g>
+
+  <g transform="translate(720,290)" style="display:none"/>
+
+  <g transform="translate(720,290)">
+    <rect class="media" x="0" y="110" width="130" height="80" rx="10" filter="url(#sketch2)"/>
+    <rect class="box"   x="0" y="110" width="130" height="80" rx="10"/>
+    <text x="65" y="148" text-anchor="middle" class="label">/content/*</text>
+    <text x="65" y="168" text-anchor="middle" class="sub">HLS segments</text>
+  </g>
+
+  <path class="line" d="M 785 390 L 785 400 L 785 400" marker-end="url(#arrow)"/>
+</svg>

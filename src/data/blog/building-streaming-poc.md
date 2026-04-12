@@ -14,11 +14,15 @@ description: A working HLS video streaming proof of concept on an Oracle Always 
 
 ## Table of contents
 
+_Part 1 of 2. Part 2: [From Self-Hosted HLS to Bunny Stream — What Changes and What Breaks](https://argha.dev/posts/from-self-hosted-hls-to-bunny-stream/)._
+
 A TVOD (transactional video-on-demand) platform — the kind where users buy tickets to watch movies instead of paying a monthly subscription. Think Apple TV rentals, not Netflix. The backend was coming along: NestJS monolith, PostgreSQL, JWT auth, movie catalog, ticket purchases, all test-driven. But the most important question was still open: _can the thing actually stream video?_
 
 Design docs are comfortable. They describe CMAF packaging, multi-DRM with Widevine and FairPlay, CloudFront signed cookies, adaptive bitrate ladders. Everything sounds great on paper. But paper doesn't buffer.
 
 So a few days went into building a proof of concept. A real one — movie catalog, authentication, click play, video streams. Deployed on a server that costs nothing. It took longer than expected, about three days of building, debugging, and questioning various life choices. Here's everything that went wrong, and the few things that went right.
+
+**The headline:** three days, $0 hosting, six bugs that each cost hours. Shaka Player + HLS + Caddy + NestJS on an Oracle Always Free ARM server, fronted by a Cloudflare Tunnel. The architecture survived.
 
 ## Why a POC Before DRM
 
@@ -29,6 +33,8 @@ Plain HLS without encryption validates all of this. DRM is a layer on top — a 
 ## The Architecture That Matters
 
 Most streaming tutorials show how to use HLS.js or Video.js with a hardcoded manifest URL. That's not how production works. Production streaming has a same-origin architecture:
+
+![Single-origin reverse proxy routing browser traffic through Cloudflare Tunnel to Caddy, which serves frontend, API, and HLS segments under one domain](/assets/blog/streaming-architecture.svg)
 
 ```
 Browser → single domain → Reverse Proxy
@@ -187,3 +193,5 @@ Turns out, it does. After enough debugging.
 ---
 
 _The six bugs above are real, and each one cost hours. If you're building something similar, hopefully this saves you a few of those hours. The wrong approaches are just as useful as the right ones._
+
+_Continue to Part 2: [From Self-Hosted HLS to Bunny Stream — What Changes and What Breaks](https://argha.dev/posts/from-self-hosted-hls-to-bunny-stream/). The architecture from this POC gets tested when the delivery layer is swapped for a managed CDN._

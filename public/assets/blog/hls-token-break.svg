@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" font-family="'Caveat','Comic Sans MS',cursive" font-size="18">
+  <defs>
+    <filter id="sketch3" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" seed="11"/>
+      <feDisplacementMap in="SourceGraphic" scale="2"/>
+    </filter>
+    <marker id="arrow3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2937"/>
+    </marker>
+    <marker id="arrow3red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#b91c1c"/>
+    </marker>
+    <style>
+      .box  { fill:none; stroke:#1f2937; stroke-width:2.5; filter:url(#sketch3); }
+      .line { stroke:#1f2937; stroke-width:2.5; fill:none; filter:url(#sketch3); }
+      .bad  { stroke:#b91c1c; stroke-width:2.5; fill:none; filter:url(#sketch3); }
+      .ok   { fill:#dcfce7; }
+      .fail { fill:#fee2e2; }
+      .player { fill:#e0e7ff; }
+      .cdn  { fill:#fef3c7; }
+      .label{ fill:#111827; font-weight:600; }
+      .sub  { fill:#374151; font-size:14px; }
+      .tag  { fill:#6b7280; font-size:13px; font-style:italic; }
+      .status-ok   { fill:#166534; font-size:20px; font-weight:700; }
+      .status-bad  { fill:#b91c1c; font-size:20px; font-weight:700; }
+      .title{ font-size:26px; fill:#111827; font-weight:700; }
+      .note { fill:#b91c1c; font-style:italic; font-size:15px; }
+    </style>
+  </defs>
+
+  <text x="450" y="36" text-anchor="middle" class="title">CDN token auth breaks on HLS sub-resources</text>
+  <text x="450" y="62" text-anchor="middle" class="tag">token signed for manifest path · segments live at different paths</text>
+
+  <g transform="translate(40,100)">
+    <rect class="player" x="0" y="0" width="200" height="360" rx="10" filter="url(#sketch3)"/>
+    <rect class="box"    x="0" y="0" width="200" height="360" rx="10"/>
+    <text x="100" y="40"  text-anchor="middle" class="label" font-size="22">Shaka Player</text>
+    <text x="100" y="68"  text-anchor="middle" class="sub">1. load manifest</text>
+    <text x="100" y="150" text-anchor="middle" class="sub">2. parse ABR ladder</text>
+    <text x="100" y="232" text-anchor="middle" class="sub">3. fetch sub-manifest</text>
+    <text x="100" y="314" text-anchor="middle" class="sub">4. fetch .ts segments</text>
+    <text x="100" y="345" text-anchor="middle" class="tag">reuses manifest token</text>
+  </g>
+
+  <g transform="translate(660,100)">
+    <rect class="cdn" x="0" y="0" width="200" height="360" rx="10" filter="url(#sketch3)"/>
+    <rect class="box" x="0" y="0" width="200" height="360" rx="10"/>
+    <text x="100" y="40"  text-anchor="middle" class="label" font-size="22">Bunny CDN</text>
+    <text x="100" y="68"  text-anchor="middle" class="sub">per-path HMAC</text>
+    <text x="100" y="340" text-anchor="middle" class="tag">token_path broken</text>
+  </g>
+
+  <path class="line" d="M 240 130 L 660 130" marker-end="url(#arrow3)"/>
+  <text x="450" y="122" text-anchor="middle" class="sub">GET /{videoId}/playlist.m3u8?token=...</text>
+  <rect class="ok" x="405" y="136" width="90" height="28" rx="6" filter="url(#sketch3)"/>
+  <rect class="box" x="405" y="136" width="90" height="28" rx="6"/>
+  <text x="450" y="156" text-anchor="middle" class="status-ok">200 OK</text>
+
+  <path class="line" d="M 240 225 L 660 225" marker-end="url(#arrow3)"/>
+  <text x="450" y="217" text-anchor="middle" class="sub">GET /{videoId}/360p/video.m3u8?token=same</text>
+  <rect class="fail" x="395" y="230" width="110" height="28" rx="6" filter="url(#sketch3)"/>
+  <rect class="box"  x="395" y="230" width="110" height="28" rx="6"/>
+  <text x="450" y="250" text-anchor="middle" class="status-bad">403 ✗</text>
+
+  <path class="bad" d="M 240 320 L 660 320" marker-end="url(#arrow3red)"/>
+  <text x="450" y="312" text-anchor="middle" class="sub">GET /{videoId}/360p/seg-1.ts?token=same</text>
+  <rect class="fail" x="395" y="324" width="110" height="28" rx="6" filter="url(#sketch3)"/>
+  <rect class="box"  x="395" y="324" width="110" height="28" rx="6"/>
+  <text x="450" y="344" text-anchor="middle" class="status-bad">403 ✗ × N</text>
+
+  <text x="450" y="505" text-anchor="middle" class="note">manifest token matches one path. segments live at N different paths.</text>
+  <text x="450" y="530" text-anchor="middle" class="note">answer: either sign per-segment via Shaka request filter, or use DRM</text>
+</svg>
