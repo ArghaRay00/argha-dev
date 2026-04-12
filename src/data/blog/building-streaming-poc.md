@@ -12,8 +12,6 @@ tags:
 description: A working HLS video streaming proof of concept on an Oracle Always Free ARM server. Every mistake made along the way, and what actually worked.
 ---
 
-## Table of contents
-
 _Part 1 of 2. Part 2: [From Self-Hosted HLS to Bunny Stream — What Changes and What Breaks](https://argha.dev/posts/from-self-hosted-hls-to-bunny-stream/)._
 
 A TVOD (transactional video-on-demand) platform — the kind where users buy tickets to watch movies instead of paying a monthly subscription. Think Apple TV rentals, not Netflix. The backend was coming along: NestJS monolith, PostgreSQL, JWT auth, movie catalog, ticket purchases, all test-driven. But the most important question was still open: _can the thing actually stream video?_
@@ -23,6 +21,8 @@ Design docs are comfortable. They describe CMAF packaging, multi-DRM with Widevi
 So a few days went into building a proof of concept. A real one — movie catalog, authentication, click play, video streams. Deployed on a server that costs nothing. It took longer than expected, about three days of building, debugging, and questioning various life choices. Here's everything that went wrong, and the few things that went right.
 
 **The headline:** three days, $0 hosting, six bugs that each cost hours. Shaka Player + HLS + Caddy + NestJS on an Oracle Always Free ARM server, fronted by a Cloudflare Tunnel.
+
+## Table of contents
 
 ## Why a POC Before DRM
 

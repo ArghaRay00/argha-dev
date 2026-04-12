@@ -12,8 +12,6 @@ tags:
 description: "Part 2 of the streaming POC series. Swapping self-hosted HLS for Bunny Stream looked like a backend service change. The token auth took two days."
 ---
 
-## Table of contents
-
 _Part 2 of 2. Part 1: [Streaming Video on a $0 Server](https://argha.dev/posts/streaming-video-on-a-zero-dollar-server/)._
 
 Part 1 proved that a TVOD streaming platform could run end-to-end on an Oracle Always Free ARM VPS. Shaka Player, HLS from Caddy, NestJS for auth and sessions, Cloudflare Tunnel for TLS. Zero dollars a month, and the architecture held.
@@ -23,6 +21,8 @@ What it did not prove was **scale**. One VPS in Hyderabad delivers ~200 ms first
 This is the story of swapping the delivery layer for a managed CDN. The integration surfaced a specific Bunny Stream quirk around HLS token authentication that cost two days and is not well documented anywhere.
 
 **The headline:** ~$0/mo → ~$400-700/mo at 5,000 MAU. Fifteen files changed. Zero changes to auth, sessions, or the frontend. One wall so stubborn that the POC initially shipped with CDN token auth **disabled**.
+
+## Table of contents
 
 ## What self-hosted doesn't solve
 

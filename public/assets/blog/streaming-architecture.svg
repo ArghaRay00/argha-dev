@@ -1,85 +1,82 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" font-family="'Caveat','Comic Sans MS',cursive" font-size="18">
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="480" viewBox="0 0 900 480" font-family="ui-sans-serif, system-ui, -apple-system, 'Inter', sans-serif">
   <defs>
-    <filter id="sketch2" x="-5%" y="-5%" width="110%" height="110%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" seed="7"/>
-      <feDisplacementMap in="SourceGraphic" scale="2"/>
-    </filter>
-    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto">
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
       <path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2937"/>
     </marker>
-    <style>
-      .box { fill:none; stroke:#1f2937; stroke-width:2.5; filter:url(#sketch2); }
-      .line { stroke:#1f2937; stroke-width:2.5; fill:none; filter:url(#sketch2); }
-      .browser { fill:#e0e7ff; }
-      .cloud   { fill:#dbeafe; }
-      .caddy   { fill:#fef3c7; }
-      .service { fill:#dcfce7; }
-      .media   { fill:#fce7f3; }
-      .label   { fill:#111827; font-weight:600; }
-      .sub     { fill:#374151; font-size:14px; }
-      .tag     { fill:#6b7280; font-size:13px; font-style:italic; }
-      .title   { font-size:26px; fill:#111827; font-weight:700; }
-    </style>
   </defs>
+  <style>
+    .bg   { fill: #fafafa; }
+    .box  { fill: none; stroke: #1f2937; stroke-width: 2; }
+    .line { stroke: #1f2937; stroke-width: 2; fill: none; }
+    .browser { fill: #e0e7ff; }
+    .cloud   { fill: #dbeafe; }
+    .caddy   { fill: #fef3c7; }
+    .svc     { fill: #dcfce7; }
+    .media   { fill: #fce7f3; }
+    .title { font-size: 22px; fill: #111827; font-weight: 700; }
+    .h     { font-size: 17px; fill: #111827; font-weight: 700; }
+    .s     { font-size: 13px; fill: #374151; }
+    .tag   { font-size: 12px; fill: #6b7280; font-style: italic; }
+  </style>
 
-  <text x="450" y="36" text-anchor="middle" class="title">single-origin reverse proxy · one domain, no CORS</text>
+  <rect class="bg" x="0" y="0" width="900" height="480"/>
+  <text x="450" y="36" text-anchor="middle" class="title">single-origin reverse proxy — one domain, no CORS</text>
 
   <g transform="translate(40,80)">
-    <rect class="browser" x="0" y="30" width="150" height="90" rx="10" filter="url(#sketch2)"/>
-    <rect class="box"     x="0" y="30" width="150" height="90" rx="10"/>
-    <text x="75" y="68"  text-anchor="middle" class="label">browser</text>
-    <text x="75" y="92"  text-anchor="middle" class="sub">Shaka Player</text>
-    <text x="75" y="110" text-anchor="middle" class="tag">one domain</text>
+    <rect class="browser" x="0" y="0" width="170" height="100" rx="8"/>
+    <rect class="box"     x="0" y="0" width="170" height="100" rx="8"/>
+    <text x="85" y="38" text-anchor="middle" class="h">browser</text>
+    <text x="85" y="62" text-anchor="middle" class="s">Shaka Player</text>
+    <text x="85" y="82" text-anchor="middle" class="tag">single domain</text>
   </g>
 
-  <path class="line" d="M 195 155 L 265 155" marker-end="url(#arrow)"/>
+  <path class="line" d="M 215 130 L 265 130" marker-end="url(#a)"/>
 
   <g transform="translate(270,80)">
-    <rect class="cloud" x="0" y="30" width="170" height="90" rx="10" filter="url(#sketch2)"/>
-    <rect class="box"   x="0" y="30" width="170" height="90" rx="10"/>
-    <text x="85" y="68"  text-anchor="middle" class="label">Cloudflare Tunnel</text>
-    <text x="85" y="92"  text-anchor="middle" class="sub">TLS + DDoS</text>
-    <text x="85" y="110" text-anchor="middle" class="tag">no open ports</text>
+    <rect class="cloud" x="0" y="0" width="180" height="100" rx="8"/>
+    <rect class="box"   x="0" y="0" width="180" height="100" rx="8"/>
+    <text x="90" y="38" text-anchor="middle" class="h">Cloudflare Tunnel</text>
+    <text x="90" y="62" text-anchor="middle" class="s">TLS · DDoS</text>
+    <text x="90" y="82" text-anchor="middle" class="tag">no open ports</text>
   </g>
 
-  <path class="line" d="M 445 155 L 515 155" marker-end="url(#arrow)"/>
+  <path class="line" d="M 455 130 L 505 130" marker-end="url(#a)"/>
 
-  <g transform="translate(520,80)">
-    <rect class="caddy" x="0" y="30" width="330" height="90" rx="10" filter="url(#sketch2)"/>
-    <rect class="box"   x="0" y="30" width="330" height="90" rx="10"/>
-    <text x="165" y="68"  text-anchor="middle" class="label">Caddy reverse proxy</text>
-    <text x="165" y="92"  text-anchor="middle" class="sub">25-line config · 3 route blocks</text>
-    <text x="165" y="110" text-anchor="middle" class="tag">frontend · api · media</text>
+  <g transform="translate(510,80)">
+    <rect class="caddy" x="0" y="0" width="350" height="100" rx="8"/>
+    <rect class="box"   x="0" y="0" width="350" height="100" rx="8"/>
+    <text x="175" y="38" text-anchor="middle" class="h">Caddy reverse proxy</text>
+    <text x="175" y="62" text-anchor="middle" class="s">25-line config · 3 route blocks</text>
+    <text x="175" y="82" text-anchor="middle" class="tag">routes by path prefix</text>
   </g>
 
-  <path class="line" d="M 685 225 L 685 275" marker-end="url(#arrow)"/>
-  <path class="line" d="M 575 225 L 300 305" marker-end="url(#arrow)"/>
-  <path class="line" d="M 800 225 L 800 275" marker-end="url(#arrow)"/>
+  <path class="line" d="M 610 180 L 225 280" marker-end="url(#a)"/>
+  <path class="line" d="M 685 180 L 605 280" marker-end="url(#a)"/>
+  <path class="line" d="M 760 180 L 790 280" marker-end="url(#a)"/>
 
-  <g transform="translate(220,290)">
-    <rect class="service" x="0" y="0" width="170" height="100" rx="10" filter="url(#sketch2)"/>
-    <rect class="box"     x="0" y="0" width="170" height="100" rx="10"/>
-    <text x="85" y="38"  text-anchor="middle" class="label">/ frontend</text>
-    <text x="85" y="62"  text-anchor="middle" class="sub">React + Vite</text>
-    <text x="85" y="82"  text-anchor="middle" class="tag">static SPA</text>
+  <g transform="translate(110,290)">
+    <rect class="svc" x="0" y="0" width="200" height="100" rx="8"/>
+    <rect class="box" x="0" y="0" width="200" height="100" rx="8"/>
+    <text x="100" y="38" text-anchor="middle" class="h">/  frontend</text>
+    <text x="100" y="62" text-anchor="middle" class="s">React + Vite (static SPA)</text>
+    <text x="100" y="82" text-anchor="middle" class="tag">served as files</text>
   </g>
 
-  <g transform="translate(600,290)">
-    <rect class="service" x="0" y="0" width="170" height="100" rx="10" filter="url(#sketch2)"/>
-    <rect class="box"     x="0" y="0" width="170" height="100" rx="10"/>
-    <text x="85" y="38"  text-anchor="middle" class="label">/api/*</text>
-    <text x="85" y="62"  text-anchor="middle" class="sub">NestJS · JWT · sessions</text>
-    <text x="85" y="82"  text-anchor="middle" class="tag">same-origin cookies</text>
+  <g transform="translate(490,290)">
+    <rect class="svc" x="0" y="0" width="200" height="100" rx="8"/>
+    <rect class="box" x="0" y="0" width="200" height="100" rx="8"/>
+    <text x="100" y="38" text-anchor="middle" class="h">/api/*</text>
+    <text x="100" y="62" text-anchor="middle" class="s">NestJS · JWT · sessions</text>
+    <text x="100" y="82" text-anchor="middle" class="tag">same-origin cookies</text>
   </g>
 
-  <g transform="translate(720,290)" style="display:none"/>
-
-  <g transform="translate(720,290)">
-    <rect class="media" x="0" y="110" width="130" height="80" rx="10" filter="url(#sketch2)"/>
-    <rect class="box"   x="0" y="110" width="130" height="80" rx="10"/>
-    <text x="65" y="148" text-anchor="middle" class="label">/content/*</text>
-    <text x="65" y="168" text-anchor="middle" class="sub">HLS segments</text>
+  <g transform="translate(700,290)">
+    <rect class="media" x="0" y="0" width="180" height="100" rx="8"/>
+    <rect class="box"   x="0" y="0" width="180" height="100" rx="8"/>
+    <text x="90" y="38" text-anchor="middle" class="h">/content/*</text>
+    <text x="90" y="62" text-anchor="middle" class="s">HLS segments</text>
+    <text x="90" y="82" text-anchor="middle" class="tag">immutable, cached</text>
   </g>
 
-  <path class="line" d="M 785 390 L 785 400 L 785 400" marker-end="url(#arrow)"/>
+  <text x="450" y="440" text-anchor="middle" class="tag">Everything behind one domain. No CORS. Same-origin cookies. DRM can slot in at /api/license.</text>
 </svg>

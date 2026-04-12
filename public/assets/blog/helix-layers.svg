@@ -1,69 +1,69 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" font-family="'Caveat','Comic Sans MS',cursive" font-size="18">
-  <defs>
-    <filter id="sketch" x="-5%" y="-5%" width="110%" height="110%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" seed="3"/>
-      <feDisplacementMap in="SourceGraphic" scale="2"/>
-    </filter>
-    <style>
-      .box { fill: none; stroke: #1f2937; stroke-width: 2.5; filter: url(#sketch); }
-      .cognitive { fill: #fef3c7; }
-      .active    { fill: #fee2e2; }
-      .about     { fill: #dbeafe; }
-      .raw       { fill: #dcfce7; }
-      .label     { fill: #111827; font-weight: 600; }
-      .sub       { fill: #374151; font-size: 14px; }
-      .tag       { fill: #6b7280; font-size: 13px; font-style: italic; }
-      .title     { font-size: 28px; fill: #111827; font-weight: 700; }
-    </style>
-  </defs>
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="560" viewBox="0 0 900 560" font-family="ui-sans-serif, system-ui, -apple-system, 'Inter', sans-serif">
+  <style>
+    .bg     { fill: #fafafa; }
+    .box    { fill: none; stroke: #1f2937; stroke-width: 2; }
+    .cog    { fill: #fef3c7; }
+    .ab     { fill: #dbeafe; }
+    .act    { fill: #fee2e2; }
+    .raw    { fill: #dcfce7; }
+    .title  { font-size: 22px; fill: #111827; font-weight: 700; }
+    .h      { font-size: 18px; fill: #111827; font-weight: 700; }
+    .s      { font-size: 13px; fill: #374151; font-style: italic; }
+    .li     { font-size: 14px; fill: #1f2937; }
+    .tag    { font-size: 12px; fill: #6b7280; font-style: italic; }
+  </style>
 
-  <text x="450" y="40" text-anchor="middle" class="title">Helix — four layers, four write semantics</text>
+  <rect class="bg" x="0" y="0" width="900" height="560"/>
 
-  <g transform="translate(40,80)">
-    <rect class="cognitive" x="0" y="0" width="380" height="200" rx="10" filter="url(#sketch)"/>
-    <rect class="box"       x="0" y="0" width="380" height="200" rx="10"/>
-    <text x="190" y="34" text-anchor="middle" class="label" font-size="22">jishu/ — cognitive layer</text>
-    <text x="190" y="58" text-anchor="middle" class="sub">who the agent IS</text>
-    <text x="30"  y="92"  class="sub">core/ — soul, dharma, voice</text>
-    <text x="30"  y="118" class="sub">perception/ — presence, signals</text>
-    <text x="30"  y="144" class="sub">cognition/ — adda, curiosity</text>
-    <text x="30"  y="170" class="sub">evolution/ — growth, rituals</text>
-    <text x="190" y="194" text-anchor="middle" class="tag">read every request · rarely writes</text>
+  <text x="450" y="34" text-anchor="middle" class="title">Helix — four layers, four write semantics</text>
+
+  <g transform="translate(40,70)">
+    <rect class="cog" x="0" y="0" width="390" height="200" rx="8"/>
+    <rect class="box" x="0" y="0" width="390" height="200" rx="8"/>
+    <text x="195" y="32" text-anchor="middle" class="h">jishu/ — cognitive layer</text>
+    <text x="195" y="54" text-anchor="middle" class="s">who the agent IS</text>
+    <text x="22"  y="86"  class="li">core/ — soul, dharma, voice</text>
+    <text x="22"  y="110" class="li">perception/ — presence, signals</text>
+    <text x="22"  y="134" class="li">cognition/ — adda, curiosity</text>
+    <text x="22"  y="158" class="li">evolution/ — growth, rituals</text>
+    <text x="195" y="188" text-anchor="middle" class="tag">read every request · rarely writes</text>
   </g>
 
-  <g transform="translate(480,80)">
-    <rect class="about" x="0" y="0" width="380" height="200" rx="10" filter="url(#sketch)"/>
-    <rect class="box"   x="0" y="0" width="380" height="200" rx="10"/>
-    <text x="190" y="34" text-anchor="middle" class="label" font-size="22">about/ — human context</text>
-    <text x="190" y="58" text-anchor="middle" class="sub">who the user is</text>
-    <text x="30"  y="92"  class="sub">rhythms.md</text>
-    <text x="30"  y="118" class="sub">aspirations.md</text>
-    <text x="30"  y="144" class="sub">relationships.md</text>
-    <text x="30"  y="170" class="sub">capabilities.md</text>
-    <text x="190" y="194" text-anchor="middle" class="tag">read often · updated on life shifts</text>
+  <g transform="translate(470,70)">
+    <rect class="ab"  x="0" y="0" width="390" height="200" rx="8"/>
+    <rect class="box" x="0" y="0" width="390" height="200" rx="8"/>
+    <text x="195" y="32" text-anchor="middle" class="h">about/ — human context</text>
+    <text x="195" y="54" text-anchor="middle" class="s">who the user is</text>
+    <text x="22"  y="86"  class="li">rhythms.md</text>
+    <text x="22"  y="110" class="li">aspirations.md</text>
+    <text x="22"  y="134" class="li">relationships.md</text>
+    <text x="22"  y="158" class="li">capabilities.md</text>
+    <text x="195" y="188" text-anchor="middle" class="tag">read often · updates on life shifts</text>
   </g>
 
-  <g transform="translate(40,310)">
-    <rect class="active" x="0" y="0" width="380" height="200" rx="10" filter="url(#sketch)"/>
-    <rect class="box"    x="0" y="0" width="380" height="200" rx="10"/>
-    <text x="190" y="34" text-anchor="middle" class="label" font-size="22">active/ — living state</text>
-    <text x="190" y="58" text-anchor="middle" class="sub">what is happening now</text>
-    <text x="30"  y="92"  class="sub">goals/active.md</text>
-    <text x="30"  y="118" class="sub">decisions/log.md</text>
-    <text x="30"  y="144" class="sub">journal/daily + weekly</text>
-    <text x="30"  y="170" class="sub">feedback/ + wiki/</text>
-    <text x="190" y="194" text-anchor="middle" class="tag">agent writes here · reviews + reflections</text>
+  <g transform="translate(40,300)">
+    <rect class="act" x="0" y="0" width="390" height="200" rx="8"/>
+    <rect class="box" x="0" y="0" width="390" height="200" rx="8"/>
+    <text x="195" y="32" text-anchor="middle" class="h">active/ — living state</text>
+    <text x="195" y="54" text-anchor="middle" class="s">what is happening now</text>
+    <text x="22"  y="86"  class="li">goals/active.md</text>
+    <text x="22"  y="110" class="li">decisions/log.md</text>
+    <text x="22"  y="134" class="li">journal/daily + weekly</text>
+    <text x="22"  y="158" class="li">feedback/ + wiki/</text>
+    <text x="195" y="188" text-anchor="middle" class="tag">agent writes here · reviews + reflections</text>
   </g>
 
-  <g transform="translate(480,310)">
-    <rect class="raw" x="0" y="0" width="380" height="200" rx="10" filter="url(#sketch)"/>
-    <rect class="box" x="0" y="0" width="380" height="200" rx="10"/>
-    <text x="190" y="34" text-anchor="middle" class="label" font-size="22">raw/ — immutable archive</text>
-    <text x="190" y="58" text-anchor="middle" class="sub">append-only, never modify</text>
-    <text x="30"  y="92"  class="sub">memories/ — Claude Code scopes</text>
-    <text x="30"  y="118" class="sub">plans/ — implementation plans</text>
-    <text x="30"  y="144" class="sub">work/ — 14 project domains</text>
-    <text x="30"  y="170" class="sub">signals/ — RCAs, investigations</text>
-    <text x="190" y="194" text-anchor="middle" class="tag">ingested daily at 3 AM · source of truth</text>
+  <g transform="translate(470,300)">
+    <rect class="raw" x="0" y="0" width="390" height="200" rx="8"/>
+    <rect class="box" x="0" y="0" width="390" height="200" rx="8"/>
+    <text x="195" y="32" text-anchor="middle" class="h">raw/ — immutable archive</text>
+    <text x="195" y="54" text-anchor="middle" class="s">append-only, never modify</text>
+    <text x="22"  y="86"  class="li">memories/ — Claude Code scopes</text>
+    <text x="22"  y="110" class="li">plans/ — implementation plans</text>
+    <text x="22"  y="134" class="li">work/ — 14 project domains</text>
+    <text x="22"  y="158" class="li">signals/ — RCAs, investigations</text>
+    <text x="195" y="188" text-anchor="middle" class="tag">ingested daily at 3 AM · source of truth</text>
   </g>
+
+  <text x="450" y="540" text-anchor="middle" class="tag">Jishu reads the cognitive layer on every request. Writes land only in active/.</text>
 </svg>
