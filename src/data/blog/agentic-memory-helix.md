@@ -17,7 +17,7 @@ Every conversation with an LLM starts the same way: blank slate. No matter how g
 
 For a chatbot, this is fine. For an agent that's supposed to _know you_ — your projects, your patterns, your decisions, your goals — this is the core problem.
 
-This is a writeup of Helix, the knowledge base behind [Jishu](https://jishu.argha.dev), a personal AI agent that runs 24/7 on a VPS. Helix is how Jishu remembers anything across sessions. It's not a vector database. It's not a RAG pipeline. It's a git repo full of markdown files.
+This is a writeup of Helix, the knowledge base behind [Jishu](https://jishu.argha.dev), a personal AI agent that runs 24/7 on a VPS. (Jishu is my nickname.) Helix is how Jishu remembers anything across sessions. It's not a vector database. It's not a RAG pipeline. It's a git repo full of markdown files.
 
 That sounds underwhelming. It took a while to get here.
 
