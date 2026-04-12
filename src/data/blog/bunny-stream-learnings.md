@@ -20,7 +20,7 @@ Part 1 proved that a TVOD streaming platform could run end-to-end on an Oracle A
 
 What it did not prove was **scale**. One VPS in Hyderabad delivers ~200 ms first-byte latency to a viewer in New Jersey. There is no encoding pipeline — every rendition is a manual `ffmpeg` run. There is no DRM. Storage for 500 titles at five renditions each is ~2-3 TB, and the VPS has 200 GB.
 
-This is the story of swapping the delivery layer for a managed CDN. The architecture held again, which was the point. But the integration surfaced a specific Bunny Stream quirk around HLS token authentication that cost two days, and is not well documented anywhere.
+This is the story of swapping the delivery layer for a managed CDN. The integration surfaced a specific Bunny Stream quirk around HLS token authentication that cost two days and is not well documented anywhere.
 
 **The headline:** ~$0/mo → ~$400-700/mo at 5,000 MAU. Fifteen files changed. Zero changes to auth, sessions, or the frontend. One wall so stubborn that the POC initially shipped with CDN token auth **disabled**.
 
@@ -41,7 +41,7 @@ VdoCipher is the Indian option. Gurugram-based, battle-tested with Indian OTT, f
 
 The dealbreaker: **VdoCipher requires their proprietary player SDK.** You cannot use Shaka Player. Their DRM license flow is tightly coupled to their custom Video.js-based player.
 
-Player lock-in is the worst kind of vendor lock-in for a streaming platform. The player is the most visible and most customized part of the stack. Encoding, CDN, DRM keys — those are backend plumbing and can be swapped. The player cannot. Rewriting the player integration means losing control over ABR behavior, buffering strategy, error UX, and DRM configuration, with no path back.
+This is the kind of coupling I wanted to avoid. The player is the most visible and most customized part of my stack — ABR behavior, buffering strategy, error UX, DRM configuration. Encoding, CDN, and DRM keys are backend plumbing that can be swapped later. Switching to VdoCipher's player means giving up control over all of that with no path back, so I moved on.
 
 ### AWS pipeline — production target, overkill for Phase 1
 
@@ -238,12 +238,12 @@ Different Docker Compose stacks, different Cloudflare Tunnel routes, same machin
 6. **Upload via fetch-from-URL is the simplest path.** Give Bunny a public URL and it downloads, encodes, and returns a GUID. No multipart upload plumbing needed for seed content.
 7. **The `cdn_url` column is overloaded across branches.** Local path in one, GUID in the other. Fine for a POC; a production schema wants a `provider` discriminator.
 
-## What this proved about the architecture
+## What changed and what didn't
 
-Part 1 was an assertion: a clean separation of auth, sessions, and delivery means the delivery layer is a plug. Part 2 tested the assertion. The delivery plug came out. A different one went in. Fifteen files changed. The frontend, auth, and session code did not need to know.
+Part 1 separated auth, sessions, and delivery into three concerns so the delivery layer could be a plug. In Part 2 the delivery plug came out and a different one went in. Fifteen files changed. The frontend, auth, and session code did not need to know.
 
-That is the quiet result worth writing down. Most architectural claims are never tested because the team never has to swap a layer. This one did, and it held — the painful part was a specific vendor quirk in the new delivery layer, not anything structural.
+The painful part was a specific Bunny Stream quirk in the new delivery layer, not anything structural. Worth writing down so I don't re-learn it next time.
 
 ---
 
-_Bunny Stream is a good default for streaming-at-scale-without-AWS. The docs gap between their embed player and custom HLS players is real. If you are going custom-player on Bunny, budget two days for the token auth investigation — or skip to DRM and bypass URL signing entirely._
+_Both POCs are live: [globo.argha.dev](https://globo.argha.dev) (self-hosted) and [globo-bunny.argha.dev](https://globo-bunny.argha.dev) (Bunny CDN + per-segment signing)._

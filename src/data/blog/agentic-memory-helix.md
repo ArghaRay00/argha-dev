@@ -1,7 +1,7 @@
 ---
 author: Argha Ray
 pubDatetime: 2026-04-10T22:00:00Z
-title: "Why My AI Agent Uses a Folder of Markdown Files Instead of a Vector Database"
+title: "Helix — A Markdown-Files Memory Layer for a Personal AI Agent"
 slug: giving-an-ai-agent-memory-that-survives-the-session
 featured: true
 draft: false
@@ -23,7 +23,7 @@ This is a writeup of Helix, the knowledge base behind [Jishu](https://jishu.argh
 
 That sounds underwhelming. It took a while to get here.
 
-**The short version:** I started with Milvus + Ollama + an MCP server for semantic retrieval. It worked. Then I ripped it all out — about 3 GB of local tooling — and replaced it with direct file reads plus Anthropic's prompt caching. The agent got better, not worse. This post is why.
+**The short version:** I started with Milvus + Ollama + an MCP server for semantic retrieval. It worked. Then I removed it — about 3 GB of local tooling — and replaced it with direct file reads plus Anthropic's prompt caching. The post covers what changed, why, and the tradeoffs.
 
 ## The Vector Database Phase
 
@@ -365,4 +365,4 @@ Total infrastructure cost: about $0.85/month for the VPS (Oracle free tier), plu
 
 ---
 
-_If you're building a personal agent and debating between vector search and simpler approaches — try the simple one first. Load the files, let the model read them, use prompt caching to keep costs down. Add complexity when you hit a wall, not before. The wall might be further away than expected._
+_Helix lives in a private git repo. Jishu runs at [jishu.argha.dev](https://jishu.argha.dev)._
