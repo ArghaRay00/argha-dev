@@ -20,7 +20,7 @@
   <g transform="translate(40,70)">
     <rect class="cog" x="0" y="0" width="390" height="200" rx="8"/>
     <rect class="box" x="0" y="0" width="390" height="200" rx="8"/>
-    <text x="195" y="32" text-anchor="middle" class="h">jishu/ — cognitive layer</text>
+    <text x="195" y="32" text-anchor="middle" class="h">vesper/ — cognitive layer</text>
     <text x="195" y="54" text-anchor="middle" class="s">who the agent IS</text>
     <text x="22"  y="86"  class="li">core/ — soul, dharma, voice</text>
     <text x="22"  y="110" class="li">perception/ — presence, signals</text>
@@ -65,5 +65,5 @@
     <text x="195" y="188" text-anchor="middle" class="tag">ingested daily at 3 AM · source of truth</text>
   </g>
 
-  <text x="450" y="540" text-anchor="middle" class="tag">Jishu reads the cognitive layer on every request. Writes land only in active/.</text>
+  <text x="450" y="540" text-anchor="middle" class="tag">Vesper reads the cognitive layer on every request. Writes land only in active/.</text>
 </svg>

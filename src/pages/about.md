@@ -8,7 +8,7 @@ I'm Argha — a software engineer in Bangalore with nine years of building thing
 
 Most of that time has been at **Motorola Solutions**, working on the backend systems behind their push-to-talk platform — RBAC engines, HA PostgreSQL, deployment tooling, cross-service integrations. I've written code across Java, C#, TypeScript, Python, and Bash, but what I care about most is understanding how systems work end to end. From the database schema to the deployment pipeline to the thing that pages you at 2am.
 
-Lately I've been deep into agent engineering — building the infrastructure that makes AI agents actually work in production. Tool orchestration, knowledge systems, autonomous research loops, the layer between the model and the real world. I built a [24/7 autonomous agent](https://jishu.argha.dev/chat) with its own cognitive architecture, and an open-source framework extracting those patterns into reusable modules.
+Lately I've been deep into agent engineering — building the infrastructure that makes AI agents actually work in production. Tool orchestration, knowledge systems, autonomous research loops, the layer between the model and the real world. I built a [24/7 autonomous agent](https://vesper.argha.dev/chat) with its own cognitive architecture, and an open-source framework extracting those patterns into reusable modules.
 
 For the full professional record, see my [CV](/cv).
 
@@ -16,13 +16,13 @@ For the full professional record, see my [CV](/cv).
 
 ## Projects
 
-**[Jishu](https://jishu.argha.dev/chat)** — a personal AI agent that runs 24/7 on a VPS. Telegram bot with a cognitive architecture — seven modes of engagement, emotional signal detection, scheduled reviews, auto-research loops, wiki compilation. Guest web chat where anyone can talk to it about me. Git-synced knowledge base with 3,000+ markdown files. Python, FastAPI, Claude API, SearXNG.
+**[Vesper](https://vesper.argha.dev/chat)** — a personal AI agent that runs 24/7 on a VPS. Telegram bot with a cognitive architecture — seven modes of engagement, emotional signal detection, scheduled reviews, auto-research loops, wiki compilation. Guest web chat where anyone can talk to it about me. Git-synced knowledge base with 3,000+ markdown files. Python, FastAPI, Claude API, SearXNG.
 
 **Streaming Platform** — TVOD platform for on-demand movie rentals. Built two versions — self-hosted HLS on a free Oracle VPS (zero cost) and Bunny Stream CDN with per-segment token auth. Swapping the delivery layer required zero changes to auth, sessions, or the player. I wrote about the [full journey](/posts/streaming-video-on-a-zero-dollar-server). NestJS, React, Shaka Player, PostgreSQL.
 
 **[harnesskit](https://github.com/ArghaRay00/harnesskit)** — agent orchestration framework. Tool registry, permission engine, query loop, context manager with cache-aware compaction, agent spawner, hook system, model router. Three intelligence levels — rule-based (no model, $0), hybrid (local model), full agent (cloud model) — same architecture across all three. TypeScript, model-agnostic.
 
-**[Helix](https://github.com/ArghaRay00/helix)** — personal knowledge system that replaced a vector database. Four-layer architecture of markdown files, git-synced across devices. Powers Jishu's memory. I wrote about [the design](/posts/giving-an-ai-agent-memory-that-survives-the-session). Markdown, Git, Python.
+**[Helix](https://github.com/ArghaRay00/helix)** — personal knowledge system that replaced a vector database. Four-layer architecture of markdown files, git-synced across devices. Powers Vesper's memory. I wrote about [the design](/posts/giving-an-ai-agent-memory-that-survives-the-session). Markdown, Git, Python.
 
 **[OnlineExam](https://github.com/ArghaRay00/OnlineExam)** — college project rewritten a decade later in .NET 9. Clean Architecture, Carter, MediatR, EF Core 9, PostgreSQL, xUnit, GitHub Actions CI. Twenty-plus endpoints with auto-grading.
 

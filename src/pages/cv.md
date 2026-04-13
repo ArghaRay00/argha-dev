@@ -111,8 +111,8 @@ Full-stack ownership of Motorola's multi-tenant provisioning portal — Angular 
 
 ## Side Projects
 
-**Jishu — Personal AI Agent** · Python, FastAPI, Claude API, SearXNG
-24/7 autonomous agent on a VPS. Telegram bot with cognitive architecture — seven modes of engagement, emotional signal detection, scheduled reviews, auto-research loops, wiki compilation. Guest web chat at [jishu.argha.dev](https://jishu.argha.dev/chat). Git-synced knowledge base (Helix) with 3,000+ markdown files. Docker on Oracle ARM VPS behind Cloudflare Tunnel.
+**Vesper — Personal AI Agent** · Python, FastAPI, Claude API, SearXNG
+24/7 autonomous agent on a VPS. Telegram bot with cognitive architecture — seven modes of engagement, emotional signal detection, scheduled reviews, auto-research loops, wiki compilation. Guest web chat at [vesper.argha.dev](https://vesper.argha.dev/chat). Git-synced knowledge base (Helix) with 3,000+ markdown files. Docker on Oracle ARM VPS behind Cloudflare Tunnel.
 
 **TVOD Streaming Platform** · NestJS, React, Shaka Player, Bunny Stream, PostgreSQL
 Transactional video-on-demand platform. Two versions — self-hosted HLS (zero cost) and Bunny Stream CDN with per-segment token auth. Stream session tracking, JWT auth, same-origin reverse proxy. Swapping the delivery layer required zero changes to auth, sessions, or the player.

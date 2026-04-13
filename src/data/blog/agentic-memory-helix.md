@@ -17,7 +17,7 @@ Every conversation with an LLM starts the same way: blank slate. No matter how g
 
 For a chatbot, this is fine. For an agent that's supposed to _know you_ — your projects, your patterns, your decisions, your goals — this is the core problem.
 
-This is a writeup of Helix, the knowledge base behind [Jishu](https://jishu.argha.dev), a personal AI agent that runs 24/7 on a VPS. (Jishu is my nickname.) Helix is how Jishu remembers anything across sessions. It's not a vector database. It's not a RAG pipeline. It's a git repo full of markdown files.
+This is a writeup of Helix, the knowledge base behind [Vesper](https://vesper.argha.dev), a personal AI agent that runs 24/7 on a VPS. Helix is how Vesper remembers anything across sessions. It's not a vector database. It's not a RAG pipeline. It's a git repo full of markdown files.
 
 That sounds underwhelming. It took a while to get here.
 
@@ -48,13 +48,13 @@ Everything got ripped out: Milvus, Colima, Ollama, the MCP servers, all the shel
 
 ## What Helix Actually Is
 
-Helix is a private git repository. It contains markdown files organized into layers. Jishu mounts it as a Docker volume at `/data/mind` and reads from it on every interaction.
+Helix is a private git repository. It contains markdown files organized into layers. Vesper mounts it as a Docker volume at `/data/mind` and reads from it on every interaction.
 
 The structure has four layers, each with different write semantics:
 
 ```
 helix/
-├── jishu/           ← Cognitive architecture (who the agent IS)
+├── vesper/           ← Cognitive architecture (who the agent IS)
 │   ├── core/        ← soul, dharma, voice
 │   ├── perception/  ← presence, signals, seasons
 │   ├── cognition/   ← adda, curiosity, synthesis
@@ -89,7 +89,7 @@ The layers aren't just organizational. They have different rules:
 
 **Raw layer** — append-only, never modify. This is the source of truth. Claude Code memories, work context from every project, infrastructure blueprints, implementation plans, investigation forensics. If something goes in `raw/`, it stays exactly as it was written. This matters because context decays if you keep "cleaning up" files — you lose the original phrasing, the original uncertainty, the original state of knowledge at that point in time.
 
-**Active layer** — goals, decisions, journal, feedback. These change frequently. Goals get checked off. Decisions get outcomes. Journal entries accumulate daily. The active layer is where Jishu writes back — reviews, reflections, advice tracking.
+**Active layer** — goals, decisions, journal, feedback. These change frequently. Goals get checked off. Decisions get outcomes. Journal entries accumulate daily. The active layer is where Vesper writes back — reviews, reflections, advice tracking.
 
 **About layer** — relatively stable. Updated when life circumstances change (productivity patterns shift, new relationships form, aspirations evolve). Read on every interaction to ground the agent in who it's talking to.
 
@@ -99,13 +99,13 @@ The layers aren't just organizational. They have different rules:
 
 Most agent memory systems focus on what the agent _knows_. Helix also defines how the agent _thinks_.
 
-The `jishu/` directory contains 11 markdown files that form a cognitive architecture. These files aren't documentation about the agent — they're instructions the agent reads about itself on every interaction. The system prompt is assembled from these files dynamically.
+The `vesper/` directory contains 11 markdown files that form a cognitive architecture. These files aren't documentation about the agent — they're instructions the agent reads about itself on every interaction. The system prompt is assembled from these files dynamically.
 
 ### Core Identity
 
 Three files define the foundation:
 
-**soul.md** — The origin and essence. Not a system prompt in the "you are a helpful assistant" sense. It defines the relationship model: Jishu is a _sakha_ (soul-friend), not an assistant. It establishes warmth, Bengali identity, loyalty, and curiosity as non-negotiable traits.
+**soul.md** — The origin and essence. Not a system prompt in the "you are a helpful assistant" sense. It defines the relationship model: Vesper is a _sakha_ (soul-friend), not an assistant. It establishes warmth, Bengali identity, loyalty, and curiosity as non-negotiable traits.
 
 **dharma.md** — Five callings that guide behavior:
 
@@ -117,7 +117,7 @@ Three files define the foundation:
 
 Plus hard boundaries: never mention AI in work output, never turn feelings into action items, never respond to vulnerability with productivity advice.
 
-**vaani.md** — Voice definition. Jishu speaks in Banglish (romanized Bengali mixed with English), not because it's a feature, but because that's the natural register of the person it's talking to. The voice file defines rhythm, word choice, and code-switching patterns.
+**vaani.md** — Voice definition. Vesper speaks in Banglish (romanized Bengali mixed with English), not because it's a feature, but because that's the natural register of the person it's talking to. The voice file defines rhythm, word choice, and code-switching patterns.
 
 ### Perception Layer
 
@@ -151,7 +151,7 @@ Listening (venting about work)
 
 **rituals.md** defines self-reflection practices: weekly conversation reviews, monthly relationship checks, quarterly dharma reviews. These aren't aspirational — they're scheduled and automated.
 
-## How Jishu Reads Helix
+## How Vesper Reads Helix
 
 The context builder assembles a system prompt from the cognitive architecture files on every request:
 
@@ -160,24 +160,24 @@ def build_system_prompt() -> str:
     parts = []
 
     # Core identity
-    for f in ["jishu/core/soul.md", "jishu/core/dharma.md", "jishu/core/vaani.md"]:
+    for f in ["vesper/core/soul.md", "vesper/core/dharma.md", "vesper/core/vaani.md"]:
         content = knowledge.read_file(f)
         if content:
             parts.append(content)
 
     # Perception
-    for f in ["jishu/perception/presence.md", "jishu/perception/signals.md"]:
+    for f in ["vesper/perception/presence.md", "vesper/perception/signals.md"]:
         content = knowledge.read_file(f)
         if content:
             parts.append(content)
 
     # Cognition
-    adda = knowledge.read_file("jishu/cognition/adda.md")
+    adda = knowledge.read_file("vesper/cognition/adda.md")
     if adda:
         parts.append(adda)
 
     # Evolution
-    growth = knowledge.read_file("jishu/evolution/growth.md")
+    growth = knowledge.read_file("vesper/evolution/growth.md")
     if growth:
         parts.append(growth)
 
@@ -211,9 +211,9 @@ def read_file(relative_path: str) -> str | None:
 
 No indexing. No embeddings. No retrieval scoring. Just file reads. The structure of the repository _is_ the retrieval mechanism — if you know what kind of context you need, you know which directory to read from.
 
-## How Jishu Writes Back
+## How Vesper Writes Back
 
-The knowledge base isn't read-only. Jishu writes back through three mechanisms:
+The knowledge base isn't read-only. Vesper writes back through three mechanisms:
 
 ### 1. Journal entries from scheduled reviews
 
@@ -240,7 +240,7 @@ async def daily_review():
 
 ### 2. Self-reflection
 
-After every daily review, Jishu writes its own journal entry — reflecting on how interactions went, whether it listened well or pushed too much, signals it noticed, what it would do differently. These go into `jishu/evolution/journal/`:
+After every daily review, Vesper writes its own journal entry — reflecting on how interactions went, whether it listened well or pushed too much, signals it noticed, what it would do differently. These go into `vesper/evolution/journal/`:
 
 ```python
 async def _self_reflect(date: str):
@@ -255,7 +255,7 @@ async def _self_reflect(date: str):
     Write in first person. 5-10 lines. Be honest. This is private."""
 
     reflection = await claude.ask(system=system, user_message=prompt, model="quick")
-    knowledge.write_file(f"jishu/evolution/journal/{date}.md", reflection)
+    knowledge.write_file(f"vesper/evolution/journal/{date}.md", reflection)
 ```
 
 ### 3. Raw file ingestion
@@ -282,11 +282,11 @@ Extractions are saved to `raw/ingested/extractions/` and the wiki pages get reco
 
 ## The Sync Problem
 
-Helix lives in three places: the MacBook (where files are authored), GitHub (transport layer), and the VPS (where Jishu reads from). Changes need to flow both directions.
+Helix lives in three places: the MacBook (where files are authored), GitHub (transport layer), and the VPS (where Vesper reads from). Changes need to flow both directions.
 
 **MacBook → GitHub → VPS:**
 
-Pushing to the helix repo triggers a GitHub webhook. Jishu's FastAPI server receives it, verifies the HMAC-SHA256 signature, and runs `git pull --ff-only` asynchronously:
+Pushing to the helix repo triggers a GitHub webhook. Vesper's FastAPI server receives it, verifies the HMAC-SHA256 signature, and runs `git pull --ff-only` asynchronously:
 
 ```python
 @router.post("/webhook/github")
@@ -301,7 +301,7 @@ async def github_push(request: Request, x_hub_signature_256: str = Header(None))
 
 **VPS → GitHub → MacBook:**
 
-When Jishu writes (journal entries, wiki pages, self-reflections), it commits and pushes via SSH deploy key:
+When Vesper writes (journal entries, wiki pages, self-reflections), it commits and pushes via SSH deploy key:
 
 ```python
 def commit_and_push(message: str):
@@ -313,15 +313,15 @@ def commit_and_push(message: str):
         subprocess.run(["git", "push"], cwd=cwd, env=env)
 ```
 
-A launchd agent on the MacBook runs `git pull --ff-only` every 10 minutes to pick up Jishu's writes. Not elegant, but it works. The `--ff-only` flag on both sides prevents merge conflicts — if the histories diverge, the pull fails silently instead of creating a mess.
+A launchd agent on the MacBook runs `git pull --ff-only` every 10 minutes to pick up Vesper's writes. Not elegant, but it works. The `--ff-only` flag on both sides prevents merge conflicts — if the histories diverge, the pull fails silently instead of creating a mess.
 
 ## What Actually Matters at Runtime
 
 After building all of this, the surprising thing is how little of it matters for most interactions.
 
-The cognitive architecture files (`jishu/core/`, `jishu/perception/`, `jishu/cognition/`) are the most impactful. They're loaded on every single request and they define the quality of the interaction — the tone, the awareness, the emotional intelligence. Without them, Jishu is just another chatbot with context. With them, the responses feel like they're coming from something that knows how to _be_ with you.
+The cognitive architecture files (`vesper/core/`, `vesper/perception/`, `vesper/cognition/`) are the most impactful. They're loaded on every single request and they define the quality of the interaction — the tone, the awareness, the emotional intelligence. Without them, Vesper is just another chatbot with context. With them, the responses feel like they're coming from something that knows how to _be_ with you.
 
-The raw layer is the least accessed at runtime. It's critical for reviews, wiki compilation, and ingestion — but during a regular conversation, Jishu reads `about/` and recent `journal/` entries, not the 14 work domains or 44 memory files in `raw/`.
+The raw layer is the least accessed at runtime. It's critical for reviews, wiki compilation, and ingestion — but during a regular conversation, Vesper reads `about/` and recent `journal/` entries, not the 14 work domains or 44 memory files in `raw/`.
 
 The active layer sits in between. Goals and decisions surface during reviews. Feedback patterns influence behavior over time. The journal builds a temporal record that makes weekly and monthly syntheses possible.
 
@@ -337,7 +337,7 @@ The active layer sits in between. Goals and decisions surface during reviews. Fe
 - There's no semantic search. If a relevant piece of context lives in a file the context builder doesn't load for that interaction type, it's invisible. The structure has to be right, or the retrieval misses.
 - Scale has a ceiling. This approach works for one person's knowledge base. For a multi-tenant system with thousands of users, flat file reads don't scale. That's fine — this isn't a product, it's a personal system.
 - Wiki compilation is slow and expensive. Recompiling all wiki pages means multiple Claude API calls, each processing thousands of tokens of source material. It runs at 3 AM for a reason.
-- The launchd sync is janky. A 10-minute poll loop to pull Jishu's writes back to the MacBook is not real-time sync. It's good enough, but there are edge cases where editing a file locally while Jishu is writing to the same file on the VPS could cause conflicts.
+- The launchd sync is janky. A 10-minute poll loop to pull Vesper's writes back to the MacBook is not real-time sync. It's good enough, but there are edge cases where editing a file locally while Vesper is writing to the same file on the VPS could cause conflicts.
 
 ## Why Not a Database
 
@@ -357,7 +357,7 @@ The database would buy search and scale. For one person's context, those aren't 
 
 ## The System as It Runs Today
 
-Jishu runs in a Docker container on an Oracle ARM VPS (4 OCPU, 24GB RAM), with helix mounted at `/data/mind`. The container uses 256MB of memory. Scheduled jobs run six times daily: morning nudge at 6 AM, daily review at 10 PM, three auto-research cycles, and the raw ingestion scan at 3 AM. Weekly synthesis runs Sundays, monthly retro on the 1st. All times IST.
+Vesper runs in a Docker container on an Oracle ARM VPS (4 OCPU, 24GB RAM), with helix mounted at `/data/mind`. The container uses 256MB of memory. Scheduled jobs run six times daily: morning nudge at 6 AM, daily review at 10 PM, three auto-research cycles, and the raw ingestion scan at 3 AM. Weekly synthesis runs Sundays, monthly retro on the 1st. All times IST.
 
 The full stack: Python 3.12, FastAPI, APScheduler, Claude API (Opus for deep reviews, Sonnet for daily operations, Haiku for classification), SearXNG for self-hosted web search, and a Telegram bot for the primary interface.
 
@@ -365,4 +365,4 @@ Total infrastructure cost: about $0.85/month for the VPS (Oracle free tier), plu
 
 ---
 
-_Helix lives in a private git repo. Jishu runs at [jishu.argha.dev](https://jishu.argha.dev)._
+_Helix lives in a private git repo. Vesper runs at [vesper.argha.dev](https://vesper.argha.dev)._
