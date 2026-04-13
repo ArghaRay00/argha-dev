@@ -9,7 +9,7 @@ description: "CV of Argha Ray — Senior Software Engineer at Motorola Solutions
 Bengaluru, India
 [argha.dev](https://argha.dev) · [GitHub](https://github.com/ArghaRay00) · [LinkedIn](https://www.linkedin.com/in/argha94)
 
-*Last updated: April 2026*
+*Last updated: April 2026* · [Download PDF](/argha-ray-cv.pdf)
 
 ---
 
