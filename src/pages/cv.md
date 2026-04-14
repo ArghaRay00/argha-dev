@@ -7,6 +7,7 @@ description: "CV of Argha Ray — Senior Software Engineer at Motorola Solutions
 # Argha Ray
 
 Bengaluru, India
+
 [argha.dev](https://argha.dev) · [GitHub](https://github.com/ArghaRay00) · [LinkedIn](https://www.linkedin.com/in/argha94)
 
 *Last updated: April 2026* · [Download PDF](/argha-ray-cv.pdf)
@@ -111,43 +112,65 @@ Full-stack ownership of Motorola's multi-tenant provisioning portal — Angular 
 
 ## Side Projects
 
-**Vesper — Personal AI Agent** · Python, FastAPI, Claude API, SearXNG
+### Vesper — Personal AI Agent
+
+*Python, FastAPI, Claude API, SearXNG*
+
 24/7 autonomous agent on a VPS. Telegram bot with cognitive architecture — seven modes of engagement, emotional signal detection, scheduled reviews, auto-research loops, wiki compilation. Guest web chat at [vesper.argha.dev](https://vesper.argha.dev/chat). Git-synced knowledge base (Helix) with 3,000+ markdown files. Docker on Oracle ARM VPS behind Cloudflare Tunnel.
 
-**TVOD Streaming Platform** · NestJS, React, Shaka Player, Bunny Stream, PostgreSQL
+### TVOD Streaming Platform
+
+*NestJS, React, Shaka Player, Bunny Stream, PostgreSQL*
+
 Transactional video-on-demand platform. Two versions — self-hosted HLS (zero cost) and Bunny Stream CDN with per-segment token auth. Stream session tracking, JWT auth, same-origin reverse proxy. Swapping the delivery layer required zero changes to auth, sessions, or the player.
 
-**harnesskit — Agent Orchestration Framework** · TypeScript, Model-Agnostic
+### harnesskit — Agent Orchestration Framework
+
+*TypeScript, Model-Agnostic*
+
 Open-source framework extracting production agent patterns into reusable modules: tool registry, permission engine, query loop, context manager with cache-aware compaction, agent spawner, hook system, and model router. Three intelligence levels — rule-based (no model), hybrid (local model), full agent (cloud model) — same architecture across all three.
 
-**Helix — Personal Knowledge System** · Markdown, Git, Python
+### Helix — Personal Knowledge System
+
+*Markdown, Git, Python*
+
 Structured knowledge base that replaced a vector database. Four-layer architecture: immutable raw sources, active goals/decisions/journal, personal context, and cognitive architecture. Git-synced across MacBook, GitHub, and VPS.
 
-**Jira Ticket Creator** · JavaScript, VS Code Extension API, Copilot LM API
+### Jira Ticket Creator
+
+*JavaScript, VS Code Extension API, Copilot LM API*
+
 Zero-dependency VS Code extension for creating Jira tickets with AI. Single and bulk ticket creation. Cookie auth for enterprise Jira behind SSO/IAP. Distributed to team via GitHub Releases.
 
-**OnlineExam** · .NET 9, Clean Architecture, PostgreSQL
+### OnlineExam
+
+*.NET 9, Clean Architecture, PostgreSQL*
+
 College project rewritten a decade later — Carter endpoints, MediatR CQRS, EF Core 9, xUnit, GitHub Actions CI. Twenty-plus endpoints with auto-grading.
 
-**argha.dev** · Astro, Tailwind CSS, Cloudflare Pages
+### argha.dev
+
+*Astro, Tailwind CSS, Cloudflare Pages*
+
 Personal blog and portfolio. Technical writing on streaming architecture, agent memory systems, and infrastructure.
 
 ---
 
 ## Technical Skills
 
-**Languages:** Java, C#, TypeScript, Python, Bash, SQL
-**Backend:** Spring Boot, ASP.NET Core, NestJS, FastAPI
-**Data:** PostgreSQL, SQL Server, DynamoDB, Redis, Kafka
-**Cloud & Infra:** AWS (Lambda, IoT Core, S3), Docker, Cloudflare, GitHub Actions, Azure DevOps
-**Frontend:** Angular, React
-**Agent Engineering:** Claude Code, Prompt Engineering, Prompt Chaining, Context Engineering, MCP Servers, Tool Orchestration, RAG
+- **Languages:** Java, C#, TypeScript, Python, Bash, SQL
+- **Backend:** Spring Boot, ASP.NET Core, NestJS, FastAPI
+- **Data:** PostgreSQL, SQL Server, DynamoDB, Redis, Kafka
+- **Cloud & Infra:** AWS (Lambda, IoT Core, S3), Docker, Cloudflare, GitHub Actions, Azure DevOps
+- **Frontend:** Angular, React
+- **Agent Engineering:** Claude Code, Prompt Engineering, Prompt Chaining, Context Engineering, MCP Servers, Tool Orchestration, RAG
 
 ---
 
 ## Education
 
 **B.E. Computer Science** — Atria Institute of Technology (now Atria University), Bengaluru · 2012–2016
+
 First Class with Distinction
 
 **Certifications:** AWS Technical Essentials · Architecting On AWS
@@ -156,9 +179,12 @@ First Class with Distinction
 
 ## Publications
 
-**Crop disease classification using texture analysis**
-2016 IEEE International Conference on Recent Trends in Electronics, Information & Communication Technology (RTEICT)
+### Crop disease classification using texture analysis
+
+*2016 IEEE International Conference on Recent Trends in Electronics, Information & Communication Technology (RTEICT)*
+
 Image processing for sunflower crop disease detection using k-means clustering and ML classifiers (KNN, SVM, Naive Bayes, Logistic Regression). Accepted to IEEE Xplore.
+
 [ieeexplore.ieee.org/document/7807942](https://ieeexplore.ieee.org/document/7807942)
 
 ---
