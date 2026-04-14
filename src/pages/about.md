@@ -1,7 +1,7 @@
 ---
 layout: ../layouts/AboutLayout.astro
 title: "About"
-description: "Argha Ray — software engineer with nine years in production backend systems at Motorola Solutions. Building agent infrastructure, tool orchestration, and knowledge systems. Based in Bangalore, open to remote roles in Europe."
+description: "Argha Ray — software engineer with nine years in production backend systems at Motorola Solutions. Building agent infrastructure, tool orchestration, and knowledge systems. Based in Bangalore."
 ---
 
 I'm Argha — a software engineer in Bangalore with nine years of building things that run in production.
@@ -62,6 +62,6 @@ For the full professional record, see my [CV](/cv).
 
 ---
 
-Open to remote roles, especially in Europe. Based in Bangalore (IST / UTC+5:30).
+Based in Bangalore (IST / UTC+5:30).
 
 [GitHub](https://github.com/ArghaRay00) · [LinkedIn](https://www.linkedin.com/in/argha94) · [X](https://x.com/argharay94)
