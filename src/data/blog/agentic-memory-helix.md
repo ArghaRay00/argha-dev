@@ -117,7 +117,7 @@ Three files define the foundation:
 
 Plus hard boundaries: never mention AI in work output, never turn feelings into action items, never respond to vulnerability with productivity advice.
 
-**vaani.md** — Voice definition. Vesper speaks in Banglish (romanized Bengali mixed with English), not because it's a feature, but because that's the natural register of the person it's talking to. The voice file defines rhythm, word choice, and code-switching patterns.
+**vaani.md** — Voice definition. Vesper matches the natural conversational register of the person it's talking to — in my case, a casual bilingual mix. The voice file defines rhythm, word choice, and code-switching patterns.
 
 ### Perception Layer
 
