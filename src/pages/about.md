@@ -28,6 +28,10 @@ For the full professional record, see my [CV](/cv).
 
 *Tech: TypeScript, model-agnostic*
 
+**[jobtrack-autopilot](https://github.com/ArghaRay00/jobtrack-autopilot)** — personal job-search autopilot. Gmail OAuth in, classified pipeline out, Telegram in your pocket. Haiku-driven classification, JD fit scoring, ghost detection with idempotent nudge drafts, leave-aware slot generator, draft preview with inline approve/reject. Runs unattended on a small VPS. Never auto-sends — drafts only.
+
+*Tech: Python, Anthropic API, Gmail API, SQLite, Cloudflare*
+
 **[Helix](https://github.com/ArghaRay00/helix)** — personal knowledge system that replaced a vector database. Four-layer architecture of markdown files, git-synced across devices. Powers Vesper's memory. I wrote about [the design](/posts/giving-an-ai-agent-memory-that-survives-the-session).
 
 *Tech: Markdown, Git, Python*

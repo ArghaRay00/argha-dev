@@ -10,7 +10,7 @@ Bengaluru, India
 
 [argha.dev](https://argha.dev) · [GitHub](https://github.com/ArghaRay00) · [LinkedIn](https://www.linkedin.com/in/argha94)
 
-*Last updated: April 2026* · [Download PDF](/argha-ray-cv.pdf)
+*Last updated: May 2026* · [Download PDF](/argha-ray-cv.pdf)
 
 ---
 
@@ -129,6 +129,12 @@ Transactional video-on-demand platform. Two versions — self-hosted HLS (zero c
 *TypeScript, Model-Agnostic*
 
 Open-source framework extracting production agent patterns into reusable modules: tool registry, permission engine, query loop, context manager with cache-aware compaction, agent spawner, hook system, and model router. Three intelligence levels — rule-based (no model), hybrid (local model), full agent (cloud model) — same architecture across all three.
+
+### jobtrack-autopilot — Job-Search Autopilot
+
+*Python, Anthropic API, Gmail API, SQLite*
+
+Personal job-search autopilot. Gmail in, classified pipeline out, Telegram in your pocket. Haiku-driven classification with salary extraction, JD fit scoring (1-10 vs candidate profile), ghost detection with idempotent nudge drafts (max 2/thread), leave-aware interview slot generator, draft preview with inline approve/reject. Runs unattended on an Oracle ARM VPS — never auto-sends. Open-sourced after running for months on the live job hunt.
 
 ### Helix — Personal Knowledge System
 
