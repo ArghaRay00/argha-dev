@@ -3,6 +3,7 @@ author: Argha Ray
 pubDatetime: 2026-04-05T18:00:00Z
 title: "From Self-Hosted HLS to Bunny Stream: What Changes and What Breaks"
 slug: from-self-hosted-hls-to-bunny-stream
+modDatetime: 2026-09-15T18:30:00Z
 featured: true
 draft: false
 tags:
@@ -13,6 +14,8 @@ description: "Part 2 of the streaming POC series. Swapping self-hosted HLS for B
 ---
 
 _Part 2 of 2. Part 1: [Streaming Video on a $0 Server](https://argha.dev/posts/streaming-video-on-a-zero-dollar-server/)._
+
+> **Correction, 15 September 2026.** The first version of this post said directory-scoped tokens (`token_path`) do not work on Bunny Stream pull zones. In September I re-read my signer and found it hashed only the key, the path and the expiry. `token_path` never entered the hashed string, which explains the 403 on its own. Bunny's Stream docs recommend path-style directory tokens for HLS. The affected sections below now say so, and the per-segment workaround carries a warning it should have had from the start.
 
 Part 1 proved that a TVOD streaming platform could run end-to-end on an Oracle Always Free ARM VPS. Shaka Player, HLS from Caddy, NestJS for auth and sessions, Cloudflare Tunnel for TLS. Zero dollars a month, and the architecture held.
 
@@ -165,7 +168,7 @@ This is not documented as a prerequisite for API-generated signed URLs. The fix 
 Bunny's docs show two different token systems without making the distinction sharp:
 
 - **Embed tokens** (for their iframe player): `SHA256_HEX(key + videoId + expiry)` in the URL query.
-- **CDN pull-zone tokens** (for direct HLS URLs): `Base64URL(SHA256_RAW(key + path + expiry))` with `token_path` for directory scoping.
+- **CDN pull-zone tokens** (for direct HLS URLs): `Base64URL(SHA256_RAW(key + path + expiry + params))` with `token_path` for directory scoping. Bunny's reference signer has since moved to HMAC-SHA256 with an `HS256-` prefix over the same fields; the older form still validates.
 
 After fixing the key and the referer setting, I tested three approaches against the manifest URL:
 
@@ -175,7 +178,9 @@ After fixing the key and the referer setting, I tested three approaches against 
 | Full-path Base64URL | SHA256 | `/{videoId}/playlist.m3u8` | Base64URL | **200** |
 | Directory-scoped | SHA256 | `/{videoId}/` | Base64URL + `token_path` | **403** |
 
-Formats 1 and 2 both worked for the manifest. Format 3 — the one that Bunny's general CDN documentation recommends for HLS, because it should authorize any path under the video ID directory — consistently returned 403. Possibly a Stream pull-zone-specific limitation that diverges from the general Bunny CDN behavior.
+Formats 1 and 2 both worked for the manifest. Format 3, the one Bunny's CDN documentation recommends for HLS because it authorizes any path under the video directory, returned 403 every time.
+
+**Corrected September 2026.** The 403 was mine. A directory token needs two things my signer did not do. `token_path=/{videoId}/` has to be part of the hashed string, sorted in with any other parameters, and the signed path has to be the directory. And the token has to sit in the URL path, as `/bcdn_token=...&token_path=%2F{videoId}%2F&expires=.../{videoId}/playlist.m3u8`, so that relative URIs in the playlist inherit it. I hashed `key + path + expires` and nothing else, so no pull zone would have accepted it. In April I blamed the platform.
 
 ### Wall 4: the actual dealbreaker
 
@@ -189,9 +194,9 @@ All of the above was in service of signing the manifest. Shaka Player does not j
 
 ![Visual of the HLS sub-resource problem: manifest request returns 200 but each sub-manifest and segment fetch uses the same token and returns 403](/assets/blog/hls-token-break.svg)
 
-Directory-scoped tokens are the theoretical solution. They would authorize any path under `/{videoId}/`. But as the table above shows, `token_path` on Bunny Stream pull zones did not work — only the manifest URL ever returned 200 with that format.
+Directory-scoped tokens carried in the URL path are the fix Bunny documents for this. They authorize any path under `/{videoId}/`, and because the token is a path segment rather than a query string, every relative URI in the playlist resolves to a URL that still carries it. My April attempt failed for the signing reason above, so the POC went a different way.
 
-The conclusion: **CDN token auth on Bunny Stream was not designed for custom HLS players.** The expected workflow is either their embed player (which auto-handles sub-resource signing internally) or DRM (which handles auth at the license-server level, not the URL level). Custom players with CDN token auth is an unsupported middle ground.
+The conclusion I drew in April was that CDN token auth on Bunny Stream was not designed for custom HLS players. That was wrong. Bunny's Stream security docs say to use path-style tokens for HLS so the segments are covered too. The supported route for a custom player is one directory token for `/{videoId}/` in the URL path, signed on the server, with the key never leaving it.
 
 ## Three ways out
 
@@ -199,7 +204,7 @@ After exhausting the token auth path, there were three viable options:
 
 **Option A — disable CDN token auth.** Rely on backend JWT to gate `POST /api/stream/initiate`. The manifest URL itself is not secret: the POC has no DRM content, so a leaked URL just plays a public test movie. Add referrer restrictions in the Bunny dashboard for basic protection against hotlinking. This is what the POC initially shipped.
 
-**Option B — per-segment signing via Shaka's request filter.** Shaka Player exposes `NetworkingEngine.registerRequestFilter()`, which lets you intercept every network request before it goes out, rewrite the URL, and add parameters. A fresh token can be computed per segment using the Web Crypto API. This works, and we ended up shipping it for the live deployment at [globo-bunny.argha.dev](https://globo-bunny.argha.dev). It adds a small per-segment latency for the HMAC calculation and a noticeable amount of player-layer complexity.
+**Option B — per-segment signing via Shaka's request filter.** Shaka Player exposes `NetworkingEngine.registerRequestFilter()`, which lets you intercept every network request before it goes out, rewrite the URL, and add parameters. A fresh token can be computed per segment using the Web Crypto API. This works, and we shipped it for the live deployment at [globo-bunny.argha.dev](https://globo-bunny.argha.dev). It adds a small per-segment latency for the hash and a noticeable amount of player-layer complexity. It also hands the token key to the browser, since the player has to sign with it. For a demo playing public Blender films that is tolerable. For anything else it is a leak of the pull zone's secret, and the directory token from the correction above is what a production build should use.
 
 **Option C — enable MediaCage DRM ($99/mo).** Widevine and FairPlay handle authentication at the CDM and license-server level. The player requests a DRM license from Bunny's license server, which validates the viewer. No URL signing needed, because the content is encrypted and useless without a valid license. This is the real answer for TVOD in production, and it validates the original design: Bunny Stream with DRM, not Bunny Stream with URL signing.
 
@@ -232,8 +237,8 @@ Different Docker Compose stacks, different Cloudflare Tunnel routes, same machin
 
 1. **Two token systems, two keys, two sections of the dashboard.** Embed tokens ≠ CDN tokens. Library API key ≠ token auth key. Read carefully.
 2. **"Block direct URL file access" defaults ON.** Breaks all API-generated signed URLs until turned off.
-3. **Directory-scoped tokens (`token_path`) do not work with Bunny Stream pull zones.** Even though they are documented for regular Bunny CDN. Plan around this.
-4. **CDN token auth is per-path.** Fundamentally incompatible with HLS's sub-resource model on custom players. Either use Bunny's embed player, sign per-segment via request filter, or use DRM.
+3. **Directory-scoped tokens (`token_path`) work, with two conditions.** `token_path` must be inside the hashed string, and the token must sit in the URL path. My first attempt did neither, and this post blamed the platform for five months.
+4. **CDN token auth is per-path by default.** For HLS on a custom player, sign the video directory with a path-style token. Per-segment signing in the browser works but exposes the key. DRM is the answer for licensed content.
 5. **Free encoding is H.264 only.** H.265/VP9/AV1 run $0.025-0.15/min depending on resolution. For 500 titles of 2 hours each, premium codecs add ~$1,500-9,000 one-time.
 6. **Upload via fetch-from-URL is the simplest path.** Give Bunny a public URL and it downloads, encodes, and returns a GUID. No multipart upload plumbing needed for seed content.
 7. **The `cdn_url` column is overloaded across branches.** Local path in one, GUID in the other. Fine for a POC; a production schema wants a `provider` discriminator.
@@ -246,4 +251,4 @@ The painful part was a specific Bunny Stream quirk in the new delivery layer, no
 
 ---
 
-_Both POCs are live: [globo.argha.dev](https://globo.argha.dev) (self-hosted) and [globo-bunny.argha.dev](https://globo-bunny.argha.dev) (Bunny CDN + per-segment signing)._
+_Both POCs: [globo.argha.dev](https://globo.argha.dev) (self-hosted) and [globo-bunny.argha.dev](https://globo-bunny.argha.dev) (Bunny CDN + per-segment signing, the pre-correction approach)._
